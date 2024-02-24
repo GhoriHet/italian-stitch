@@ -1,0 +1,17 @@
+export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
+export const SIGNUP_RESPONSE = "SIGNUP_RESPONSE";
+export const LOGIN_REQUEST = "LOGIN_REQUEST";
+export const LOGGED_IN = 'LOGGED_IN';
+export const FORGOT_REQUEST = "FORGOT_REQUEST";
+export const FORGOT_RESPONSE = "FORGOT_RESPONSE"
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
+export const LOGGED_OUT = "LOGGED_OUT";
+export const AUTH_ERROR = "AUTH_ERROR";
+
+export const Add_TO_CART = 'Add_TO_CART';
+export const INCREMENT_QUANTITY = 'INC_QUNTITY';
+export const DECREMENT_QUANTITY = 'DEC_QUNTITY';
+export const REMOVE_ITEM = 'REMOVE_ITEM';
+
+export const ADD_TO_FAVOURITE = 'ADD_TO_FAVOURITE';
+export const REMOVE_TO_FAVOURITE = 'REMOVE_TO_FAVOURITE';
