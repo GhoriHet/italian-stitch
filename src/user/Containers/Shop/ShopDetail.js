@@ -35,11 +35,27 @@ function ShopDetail(props) {
                                 <h1 className='prod-name'>{item.desc}</h1>
 
                                 <div className='prod-price-section'>
-                                    <h2 className='prod-sp1'>₹ {item.price}</h2>
-                                    <div className='prod-gst'>Price inclusive of all taxes</div>
-                                </div>
+                                    <div className='prod-sp1'>₹ {item.price}</div>
+                                    <div className='prod-price-sec'>
+                                        <span className="prod-mrp">MRP</span>
+                                        <span className="prod-cp">₹ {item.mrp}</span>
+                                        <span className="prod-discnt">&nbsp; ({Math.round((item.mrp - item.price) * 100 / item.mrp)}% off)</span>
 
-                                <div className='pdp-promotion'>
+                                    </div>
+                                    <div className='section-4-sku-information u-s-p-y-14'>
+                                        <h6 className='information-heading u-s-m-b-8' style={{ marginBottom: '0px', marginTop: '15px' }}>SKU Information:</h6>
+                                        <div className='availability'>
+                                            <span style={{ fontSize: '12px' }}>Availability: {item.stock} </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <div className='prod-gst'>Price inclusive of all taxes</div> */}
+
+
+
+
+                                {/* <div className='pdp-promotion'>
                                     <div className='pdp-promo-block'>
                                         <div className="ic-offer-tag">
                                         </div>
@@ -67,12 +83,11 @@ function ShopDetail(props) {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className='size-variant-block'>
                                     <div className='size-selection' aria-label='Available Size'>Available Size</div>
                                     <div className='size-swatch'>
-                                        {/* <div className='circle size-variant-item size-instock' tabIndex={0}>{item.size}</div> */}
                                         <select className="select-box product-size">
                                             {
                                                 item.size.map((size, index) => (
@@ -90,7 +105,16 @@ function ShopDetail(props) {
                                             <span aria-label='ADD TO BAG'>   ADD TO BAG</span>
                                         </div>
                                     </div>
-                                    <div className='pdp-prod-tips' aria-label="HANDPICKED STYLES | ASSURED QUALITY ">HANDPICKED STYLES | ASSURED QUALITY </div>
+                                    <div className='pdp-prod-tips' aria-label="HANDPICKED STYLES | ASSURED QUALITY ">&nbsp; HANDPICKED STYLES | ASSURED QUALITY </div>
+                                </div>
+
+                                <div>
+                                    <div className='pdp-addtocart-button1' tabIndex={-1}>
+                                        <div className='btn-gold-gray' id="goldenBtn" role='button' tabIndex={0} onClick={() => handleCart(id)}>
+                                            <span className="pdp-wishlist-desktop-icon" style={{ fontSize: '19px ' }}><i class="fa-sharp fa-regular fa-heart"></i>  </span>
+                                            <span aria-label='SAVE TO WISHLIST'>   SAVE TO WISHLIST</span>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>

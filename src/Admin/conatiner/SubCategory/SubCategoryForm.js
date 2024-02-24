@@ -24,7 +24,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
             setValues(updateData)
         }
         dispatch(getClothCat())
-    }, [updateData])    
+    }, [updateData])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -59,34 +59,39 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
     return (
         <>
             <div className='d-flex align-items-center justify-content-between py-4'>
-                <h3 className='mb-0' style={{ color: '#FF6337' }}>SubCategory</h3>
-                <Button type="button" variant="contained" onClick={handleClickOpen}>SubCategory <AddIcon fontSize="small" /></Button>
+                <h3 className='mb-0' style={{ color: '#FF6337' }}>Subcategory</h3>
+                <Button type="button" variant="contained" onClick={handleClickOpen}>Subcategory <AddIcon fontSize="small" /></Button>
             </div>
             <Dialog id='addModal' open={open}>
-                <DialogTitle style={{ fontSize: '24px' }} className='px-5 pt-4 pb-0 text-center '>SubCategory</DialogTitle>
+                <DialogTitle style={{ fontSize: '24px' }} className='px-5 pt-4 pb-0 text-center '><b>Subcategory</b></DialogTitle>
                 <DialogContent className='px-5 pb-4'>
                     <form className='row' onSubmit={handleSubmit} style={{ width: "500px" }}>
-                        <select
-                            name="category_id"
-                            id="category_id"
-                            className="form-select"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.category_id}
-                        >
-                            <option value='0'>Select</option>
-                            {
-                                clothcat.clothcat.map((v) => {
-                                    return (
-                                        <option value={v.id}>{v.category_name}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                        {errors.category_id && touched.category_id ? (
-                            <span className="form-error1">{errors.category_id}</span>
-                        ) : null}
-                        
+                        <div className="col-12 mb-3 form_field position-relative">
+                            <div className='category_name' style={{ display: 'flex' }}>
+                                <label style={{ paddingTop: '7px', paddingRight: '20px' }}>CATEGORY NAME:</label>
+                                <select
+                                    name="category_id"
+                                    id="category_id"
+                                    className="form-select"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.category_id}
+                                >
+                                    <option value='0'>Select</option>
+                                    {
+                                        clothcat.clothcat.map((v) => {
+                                            return (
+                                                <option value={v.id}>{v.category_name}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                                {errors.category_id && touched.category_id ? (
+                                    <span className="form-error1">{errors.category_id}</span>
+                                ) : null}
+                            </div>
+                        </div>
+
                         <div className="col-12 mb-3 form_field position-relative">
                             <TextField className='m-0' margin="dense" id="mediName" label="Name" type="text" fullWidth name='sub_name' variant="standard"
                                 onChange={handleChange}

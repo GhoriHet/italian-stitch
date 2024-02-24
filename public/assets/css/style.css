@@ -2102,6 +2102,7 @@ button.sc-bdDqHD.sc-gtcySc.cAiDvq.hqaogz.rounded.px-3 {
   display: inline-block;
   margin-right: 5px;
 }
+
 #PRICE {
   font-size: 80%;
   font-weight: 400;
@@ -2149,19 +2150,20 @@ h2.brand-name {
   margin-top: 25px;
 }
 
-h2.prod-sp1 {
+.prod-sp1 {
   font-size: 24px;
   text-align: center;
   margin-right: 5px;
   margin-bottom: 0px;
   color: black;
+  font-weight: 500;
 }
 
 .prod-gst {
-  padding-top: 7px;
+  padding-top: 3px;
   text-align: center;
-  font-size: 14px;
-  /* font-family: SourceSansPro; */
+  font-size: 12px;
+  font-family: SourceSansPro;
   color: #6d6d6d;
 }
 
@@ -2178,6 +2180,26 @@ h2.prod-sp1 {
   background-color: #866528;
   color: #fff;
   font-size: 16px;
+}
+
+.btn-gold-gray {
+  background-color: #fff;
+  color: #866528;
+  border: 1px solid #866528;
+  font-size: 16px;
+}
+
+.btn-gold-gray {
+  width: 65%;
+  font-size: 16px;
+  text-align: center;
+  vertical-align: middle;
+  height: 40px;
+  margin-bottom: 5px;
+  line-height: 40px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .btn-gold,
@@ -2207,10 +2229,16 @@ h2.prod-sp1 {
   color: #6d6d6d;
   font-size: 12px;
   text-align: center;
+  padding-left: 25px;
 }
 
 .pdp-addtocart-button {
   margin-top: 40px;
+  padding-left: 180px;
+}
+
+.pdp-addtocart-button1 {
+  margin-top: 20px;
   padding-left: 180px;
 }
 
@@ -2752,4 +2780,45 @@ a:hover {
 .borderBottom {
   border-bottom: 1px solid #d9dee3 !important;
   /* padding-top: 10px; */
+}
+
+
+/* //ADMIN SIDE BUTTON FAMILY// */
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.css-sghohy-MuiButtonBase-root-MuiButton-root {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* //////////////////////////////////// */
+
+.prod-price-sec {
+  font-size: 14px;
+  color: #866528;
+  text-align: center;
+}
+
+.prod-price-sec .prod-mrp {
+  padding-right: 3px;
+}
+
+.prod-price-sec .prod-cp {
+  text-decoration: line-through;
+}
+
+.prod-price-sec .prod-discnt {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.btn-gold-gray {
+  color: #866528;
+  border: 1px solid #866528;
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+
+.btn-gray .pdp-wishlist-desktop-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

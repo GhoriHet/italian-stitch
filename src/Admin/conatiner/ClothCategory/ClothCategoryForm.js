@@ -55,6 +55,8 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
             .mixed()
             .required('Prescription is required'),
         size: yup.string().required('Size is required'),
+        mrp: yup.string().required(),
+        stock: yup.string().required()
     })
 
     const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues, setFieldValue } = useFormik({
@@ -66,16 +68,16 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
             price: '',
             desc: '',
             prec: '',
+            mrp: '',
+            stock: ''
         },
         onSubmit: (values, action) => {
             let obj = {
                 ...values,
                 size: values.size.split(',').map((v) => v.trim())
-
-            }   
-            console.log(obj);
+            }
             const mergedData = { ...values, ...obj };
-            console.log(mergedData)
+
             onHandleSubmit(mergedData)
             handleClose();
             action.resetForm()
@@ -168,21 +170,35 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                             ) : null}
                         </div>
 
+                        <div className="col-6 mb-3 form_field position-relative">
+                            <TextField className='m-0' margin="dense" id="mrp" label="MRP" type="number" fullWidth name='mrp' variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.mrp}
+                            />
+                            {errors.mrp && touched.mrp ? (
+                                <span className="d-block position-absolute form-error">{errors.mrp}</span>
+                            ) : null}
+                        </div>
+
                         <div className='col-6 mb-3 form_field position-relative'>
-                            <TextField
-                                className='m-0'
-                                margin="dense"
-                                id="size"
-                                label="Size"
-                                type="text"
-                                fullWidth
-                                name='size'
-                                variant="standard"
+                            <TextField className='m-0' margin="dense" id="size" label="Size" type="text" fullWidth name='size' variant="standard"
                                 onChange={(e) => { handleChange(e); setSize(e.target.value); }}
                                 onBlur={handleBlur}
                                 value={size}
                             />
-                            {errors.size && touched.size ? <span className='form-error-addPro'>{errors.size}</span> : null}
+                            {errors.size && touched.size ? <span className="d-block position-absolute form-error">{errors.size}</span> : null}
+                        </div>
+
+                        <div className="col-6 mb-3 form_field position-relative">
+                            <TextField className='m-0' margin="dense" id="stock" label="Stock" type="text" fullWidth name='stock' variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.stock}
+                            />
+                            {errors.stock && touched.stock ? (
+                                <span className="d-block position-absolute form-error">{errors.stock}</span>
+                            ) : null}
                         </div>
 
                         <div className="col-7 mb-3 form-group mt-3">
