@@ -69,14 +69,21 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
             desc: '',
             prec: '',
             mrp: '',
-            stock: ''
         },
         onSubmit: (values, action) => {
             let obj = {
                 ...values,
-                size: values.size.split(',').map((v) => v.trim())
+                size: values.size.split(',').map((v) => {
+                    let sizeObj = {
+                        size: v.trim(),
+                        stock: values.stock,
+                        status: true
+                    };
+                    return sizeObj;
+                })
             }
-            const mergedData = { ...values, ...obj };
+            console.log(obj);
+            const mergedData = { ...obj };
 
             onHandleSubmit(mergedData)
             handleClose();
@@ -191,10 +198,9 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                         </div>
 
                         <div className="col-6 mb-3 form_field position-relative">
-                            <TextField className='m-0' margin="dense" id="stock" label="Stock" type="text" fullWidth name='stock' variant="standard"
+                            <TextField className='m-0' margin="dense" id="stock" label="Stock" type="number" fullWidth name='stock' variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.stock}
                             />
                             {errors.stock && touched.stock ? (
                                 <span className="d-block position-absolute form-error">{errors.stock}</span>
