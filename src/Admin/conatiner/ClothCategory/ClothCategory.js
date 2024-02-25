@@ -1,7 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
@@ -13,66 +11,61 @@ import ErrorMsg from '../../../user/UI/errorMsg/ErrorMsg';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
 
 export default function ClothCategory(props) {
-    const [mdata, setMdata] = useState([])
-    const [update, setUpdate] = useState(false)
-
-    const clothcategory = useSelector(state => state.clothcategory)
-    const clothcat = useSelector((state) => state.clothcat)
-    const clothsubcat = useSelector((state) => state.clothsubcat)
-
-    const dispatch = useDispatch()
+    const [update, setUpdate] = useState(false);
+    const clothcategory = useSelector(state => state.clothcategory);
+    const clothcat = useSelector((state) => state.clothcat);
+    const clothsubcat = useSelector((state) => state.clothsubcat);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getClothCategory())
-    }, [])
+        dispatch(getClothCategory());
+    }, []);
 
     const handleFormSubmit = (data) => {
         let localData = JSON.parse(localStorage.getItem("ClothCategory"));
-
         let id = Math.floor(Math.random() * 1000);
 
         if (localData) {
             if (update) {
-                dispatch(updateClothCategory(data))
-                dispatch(setAlert({ text: 'Product successfully updated', color: 'success' }))
+                dispatch(updateClothCategory(data));
+                dispatch(setAlert({ text: 'Product successfully updated', color: 'success' }));
             } else {
-                dispatch(addClothCategory(data))
-                dispatch(setAlert({ text: 'product successfully added', color: 'success' }))
+                dispatch(addClothCategory(data));
+                dispatch(setAlert({ text: 'product successfully added', color: 'success' }));
             }
-
         } else {
-            localStorage.setItem("ClothCategory", JSON.stringify([{ id, ...data }]))
-            setMdata(localData)
+            localStorage.setItem("ClothCategory", JSON.stringify([{ id, ...data }]));
         }
-        setUpdate(false)
-    }
+        setUpdate(false);
+    };
 
     const handleDelete = (data) => {
-        dispatch(deleteClothCategory(data))
-        dispatch(setAlert({ text: 'Product successfully deleted', color: 'success' }))
-    }
+        dispatch(deleteClothCategory(data));
+        dispatch(setAlert({ text: 'Product successfully deleted', color: 'success' }));
+    };
 
     const handleUpdate = (data) => {
-        setUpdate(data)
-    }
+        setUpdate(data);
+    };
 
     const columns = [
         {
             field: 'category_id', headerName: 'Category Name', flex: 2,
             renderCell: (params) => {
-                const fData = clothcat.clothcat.filter((v) => v.id === params.row.category_id)
-                return fData.length > 0 ? fData[0].category_name : null
+                const fData = clothcat.clothcat.filter((v) => v.id === params.row.category_id);
+                return fData.length > 0 ? fData[0].category_name : null;
             }
         },
         {
             field: 'sub_id', headerName: 'Subcategory Name', flex: 2,
             renderCell: (params) => {
-                const fData = clothsubcat.clothsubcat.filter((v) => v.id === params.row.sub_id)
-                return fData.length > 0 ? fData[0].sub_name : null
+                const fData = clothsubcat.clothsubcat.filter((v) => v.id === params.row.sub_id);
+                return fData.length > 0 ? fData[0].sub_name : null;
             }
         },
         { field: 'name', headerName: 'Product Name', flex: 2 },
         { field: 'price', headerName: 'Price (₹)', flex: 1 },
+        { field: 'stock', headerName: 'Stock', flex: 1 },
         { field: 'desc', headerName: 'Description', flex: 2 },
         {
             field: 'action', headerName: 'Action', flex: 1, sortable: false, disableColumnMenu: true,

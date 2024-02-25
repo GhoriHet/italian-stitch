@@ -6,17 +6,18 @@ import DialogContent from '@mui/material/DialogContent';
 import AddIcon from '@mui/icons-material/Add';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
 import { getClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 function ClothCategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
     const [category, setCategory] = useState('')
     const [subcategory, setSubCategory] = useState([]);
-    const [size, setSize] = useState('');
+    const [sizesAndStocks, setSizesAndStocks] = useState([]);
 
     const dispatch = useDispatch()
 
@@ -33,12 +34,24 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
         dispatch(getClothSubCat())
     }, [updateData])
 
+    const sizeSchema = yup.object({
+        size: yup.string().required(),
+        stock: yup.number().required(),
+    })
+
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleAddSizeAndStock = () => {
+        setSizesAndStocks(prevState => [
+            ...prevState,
+            { size: '', stock: '' }
+        ]);
     };
 
     let Clothschema = yup.object().shape({
@@ -54,9 +67,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
         prec: yup
             .mixed()
             .required('Prescription is required'),
-        size: yup.string().required('Size is required'),
         mrp: yup.string().required(),
-        stock: yup.string().required()
     })
 
     const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues, setFieldValue } = useFormik({
@@ -73,19 +84,18 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
         onSubmit: (values, action) => {
             let obj = {
                 ...values,
-                size: values.size.split(',').map((v) => {
-                    let sizeObj = {
-                        size: v.trim(),
-                        stock: values.stock,
-                        status: true
-                    };
-                    return sizeObj;
+                sizesAndStocks: values.sizesAndStocks.map((value) => {
+                    value.size,
+                    value.stock = parseInt(value.stock)
+                    return value;
                 })
-            }
-            console.log(obj);
-            const mergedData = { ...obj };
+            };
 
-            onHandleSubmit(mergedData)
+            let newData = JSON.parse(JSON.stringify(obj));
+            console.log(newData);
+            // const mergedData = { ...obj };
+
+            // onHandleSubmit(mergedData)
             handleClose();
             action.resetForm()
         },
@@ -188,23 +198,80 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                             ) : null}
                         </div>
 
-                        <div className='col-6 mb-3 form_field position-relative'>
-                            <TextField className='m-0' margin="dense" id="size" label="Size" type="text" fullWidth name='size' variant="standard"
-                                onChange={(e) => { handleChange(e); setSize(e.target.value); }}
-                                onBlur={handleBlur}
-                                value={size}
-                            />
-                            {errors.size && touched.size ? <span className="d-block position-absolute form-error">{errors.size}</span> : null}
-                        </div>
+                        {sizesAndStocks.map((input, index) => (
+                            console.log(input),
+                            <Formik
+                                key={input.id}
+                                initialValues={{ size: input.size, stock: input.stock }}
+                                validationSchema={sizeSchema}
+                                onSubmit={(values, { setSubmitting }) => {
+                                    console.log(values);
+                                    handleAddSizeAndStock(values, input.id)
+                                    return false;
+                                }}
+                            >
+                                {({
+                                    values,
+                                    errors,
+                                    touched,
+                                    handleChange,
+                                    handleBlur,
+                                    handleSubmit,
+                                    isSubmitting,
+                                    /* and other goodies */
+                                }) => (
+                                    <form onSubmit={handleSubmit}>
+                                        <div style={{ display: 'flex', margin: '5px 0', height: '39px' }} key={input.id}>
 
-                        <div className="col-6 mb-3 form_field position-relative">
-                            <TextField className='m-0' margin="dense" id="stock" label="Stock" type="number" fullWidth name='stock' variant="standard"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {errors.stock && touched.stock ? (
-                                <span className="d-block position-absolute form-error">{errors.stock}</span>
-                            ) : null}
+                                            {/* Sizes */}
+                                            <div style={{ margin: "0 5px", width: '140px' }}>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id={`ecommerce-product-size-${input.id}`}
+                                                    placeholder="size"
+                                                    name="size"
+                                                    aria-label="Product size"
+                                                    value={values.size}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                />
+                                                {errors.size && <p>{errors.size.message}</p>}
+                                            </div>
+                                            {/* Stock */}
+                                            <div style={{ margin: "0 5px", width: '100px' }}>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    id={`ecommerce-product-stock-${input.id}`}
+                                                    placeholder="stock"
+                                                    name="stock"
+                                                    aria-label="Product stock"
+                                                    value={values.stock}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                />
+                                                {errors.stock && <p>{errors.stock.message}</p>}
+                                            </div>
+
+                                            {
+                                                !input.status ? <button type="button" onClick={handleSubmit} disabled={isSubmitting} id='add' key={input.id} disabled>
+                                                    <ArrowForwardIcon />
+                                                </button> :
+                                                    <button type="button" onClick={handleSubmit} disabled={isSubmitting} id='add' key={input.id}>
+                                                        <ArrowForwardIcon />
+                                                    </button>
+                                            }
+
+                                        </div>
+                                    </form>
+                                )}
+                            </Formik>
+                        ))}
+
+                        {/* Button to add size and stock dynamically */}
+                        <div className="col-12 mb-3">
+                            <Button variant="contained" onClick={handleAddSizeAndStock}>Add Size and Stock</Button>
                         </div>
 
                         <div className="col-7 mb-3 form-group mt-3">

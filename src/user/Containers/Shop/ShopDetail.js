@@ -45,7 +45,9 @@ function ShopDetail(props) {
                                     <div className='section-4-sku-information u-s-p-y-14'>
                                         <h6 className='information-heading u-s-m-b-8' style={{ marginBottom: '0px', marginTop: '15px' }}>SKU Information:</h6>
                                         <div className='availability'>
-                                            <span style={{ fontSize: '12px' }}>Availability: {item.stock} </span>
+                                            {
+                                                item.size.some(sizeOption => sizeOption.stock > 0) ? <span>In Stock</span> : <span>Out of Stock</span>
+                                            }
 
                                         </div>
                                     </div>
@@ -91,7 +93,8 @@ function ShopDetail(props) {
                                         <select className="select-box product-size">
                                             {
                                                 item.size.map((size, index) => (
-                                                    <option key={index} value={size}>{size}</option>
+                                                    // console.log(size.size)
+                                                    <option key={index} value={size}>{size.size}</option>
                                                 ))
                                             }
                                         </select>
