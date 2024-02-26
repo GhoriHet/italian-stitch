@@ -17,20 +17,18 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
     const [category, setCategory] = useState('')
     const [subcategory, setSubCategory] = useState([]);
-    const [size, setSize] = useState('');
     const [sizesAndStocks, setSizesAndStocks] = useState([]);
 
-    const dispatch = useDispatch()
-
-    const clothcat = useSelector(state => state.clothcat)
-
-    const clothsubcat = useSelector(state => state.clothsubcat)
+    const dispatch = useDispatch();
+    const clothcat = useSelector(state => state.clothcat);
+    const clothsubcat = useSelector(state => state.clothsubcat);
 
     useEffect(() => {
         if (updateData) {
             handleClickOpen()
             setValues(updateData);
-            setSizesAndStocks(updateData.sizesAndStocks || [])
+            setSizesAndStocks(updateData.sizesAndStocks || []);
+            setOpen(true);
         }
         dispatch(getClothCat())
         dispatch(getClothSubCat())
@@ -84,17 +82,17 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
             mrp: '',
             sizesAndStocks: []
         },
-        onSubmit: (values, action) => {
+        onSubmit: (values, { resetForm }) => {
             let obj = {
                 ...values,
                 sizesAndStocks: sizesAndStocks.map((value) => ({ ...value, stock: parseInt(value.stock) }))
             };
-            console.log(obj);
+            console.log('Submitted values:', obj);
             const mergedData = { ...obj };
 
-            onHandleSubmit(mergedData)
+            onHandleSubmit(mergedData);
             handleClose();
-            action.resetForm()
+            resetForm({ ...values }, setSizesAndStocks([])); // reset form after submission and remove all added fields in array
         },
     });
 
@@ -242,7 +240,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
 
                         {/* Button to add size and stock dynamically */}
                         <div className="col-12 mb-3">
-                            <Button variant="contained" onClick={handleAddSizeAndStock}>Add Size and Stock</Button>
+                            <Button variant="contained" onClick={handleAddSizeAndStock}><ArrowForwardIcon /></Button>
                         </div>
 
                         <div className="col-7 mb-3 form-group mt-3">
@@ -267,7 +265,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
 
                         <div className='pt-3 col-12 text-center'>
                             <Button className='me-3' onClick={handleClose}>Cancel</Button>
-                            <Button type="submit" variant="contained">Add</Button>
+                            <Button type="submit" variant="contained">{updateData ? 'Update' : 'Add'}</Button>
                         </div>
                     </form>
                 </DialogContent>
