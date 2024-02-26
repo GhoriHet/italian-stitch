@@ -46,7 +46,7 @@ function ShopDetail(props) {
                                         <h6 className='information-heading u-s-m-b-8' style={{ marginBottom: '0px', marginTop: '15px' }}>SKU Information:</h6>
                                         <div className='availability'>
                                             {
-                                                item.size.some(sizeOption => sizeOption.stock > 0) ? <span>In Stock</span> : <span>Out of Stock</span>
+                                                item.sizesAndStocks.some(sizeOption => sizeOption.stock > 0) ? <span>In Stock</span> : <span>Out of Stock</span>
                                             }
 
                                         </div>
@@ -92,7 +92,7 @@ function ShopDetail(props) {
                                     <div className='size-swatch'>
                                         <select className="select-box product-size">
                                             {
-                                                item.size.map((size, index) => (
+                                                item.sizesAndStocks.map((size, index) => (
                                                     // console.log(size.size)
                                                     <option key={index} value={size}>{size.size}</option>
                                                 ))

@@ -29,7 +29,8 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
     useEffect(() => {
         if (updateData) {
             handleClickOpen()
-            setValues(updateData)
+            setValues(updateData);
+            setSizesAndStocks(updateData.sizesAndStocks || [])
         }
         dispatch(getClothCat())
         dispatch(getClothSubCat())
