@@ -17,7 +17,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
     const [category, setCategory] = useState('');
     const [subcategory, setSubCategory] = useState([]);
-    const [sizesAndStocks, setSizesAndStocks] = useState([]);
+    const [sizesAndStocks, setSizesAndStocks] = useState([{ size: null, stock: null }]);
 
     const dispatch = useDispatch();
     const clothcat = useSelector(state => state.clothcat);
