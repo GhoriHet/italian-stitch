@@ -8,35 +8,37 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Formik, useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useState } from 'react';
 import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
 import { getClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 function ClothCategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
-    const [category, setCategory] = React.useState('');
-    const [subcategory, setSubCategory] = React.useState([]);
-    const [sizesAndStocks, setSizesAndStocks] = React.useState([]);
+    const [category, setCategory] = useState('')
+    const [subcategory, setSubCategory] = useState([]);
+    const [size, setSize] = useState('');
+    const [sizesAndStocks, setSizesAndStocks] = useState([]);
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const clothcat = useSelector(state => state.clothcat);
-    const clothsubcat = useSelector(state => state.clothsubcat);
+    const clothcat = useSelector(state => state.clothcat)
+
+    const clothsubcat = useSelector(state => state.clothsubcat)
 
     useEffect(() => {
         if (updateData) {
-            handleClickOpen();
-            setValues(updateData);
-            setSizesAndStocks(updateData.sizesAndStocks || []); // Initialize sizesAndStocks
+            handleClickOpen()
+            setValues(updateData)
         }
-        dispatch(getClothCat());
-        dispatch(getClothSubCat());
-    }, [updateData]);
+        dispatch(getClothCat())
+        dispatch(getClothSubCat())
+    }, [updateData])
 
     const sizeSchema = yup.object({
         size: yup.string().required(),
         stock: yup.number().required(),
-    });
+    })
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -54,14 +56,20 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
     };
 
     let Clothschema = yup.object().shape({
-        category_id: yup.string().required(),
-        sub_id: yup.string().required(),
-        name: yup.string().required().matches(/^[a-zA-Z ]{2,30}$/, "Please Enter Valid Name"),
+        category_id: yup.string()
+            .required(),
+        sub_id: yup.string()
+            .required(),
+        name: yup.string()
+            .required()
+            .matches(/^[a-zA-Z ]{2,30}$/, "Please Enter Valid Name"),
         price: yup.string().required(),
         desc: yup.string().required(),
-        prec: yup.mixed().required('Prescription is required'),
+        prec: yup
+            .mixed()
+            .required('Prescription is required'),
         mrp: yup.string().required(),
-    });
+    })
 
     const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues, setFieldValue } = useFormik({
         validationSchema: Clothschema,
@@ -80,23 +88,22 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                 ...values,
                 sizesAndStocks: sizesAndStocks.map((value) => ({ ...value, stock: parseInt(value.stock) }))
             };
+            console.log(obj);
+            const mergedData = { ...obj };
 
-            let newData = JSON.parse(JSON.stringify(obj));
-            console.log(newData);
+            onHandleSubmit(mergedData)
             handleClose();
-            action.resetForm();
-            onHandleSubmit(newData);
+            action.resetForm()
         },
     });
 
     const handleSub = (value) => {
-        setCategory(value);
+        setCategory(value)
 
         const fData = clothsubcat.clothsubcat.filter((v) => v.category_id === value);
 
         setSubCategory(fData);
-    };
-
+    }
     return (
         <>
             <div className='d-flex align-items-center justify-content-between py-5'>
