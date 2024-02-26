@@ -8,36 +8,35 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Formik, useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
 import { getClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 function ClothCategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
-    const [category, setCategory] = useState('')
-    const [subcategory, setSubCategory] = useState([]);
-    const [sizesAndStocks, setSizesAndStocks] = useState([]);
+    const [category, setCategory] = React.useState('');
+    const [subcategory, setSubCategory] = React.useState([]);
+    const [sizesAndStocks, setSizesAndStocks] = React.useState([]);
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const clothcat = useSelector(state => state.clothcat)
-
-    const clothsubcat = useSelector(state => state.clothsubcat)
+    const clothcat = useSelector(state => state.clothcat);
+    const clothsubcat = useSelector(state => state.clothsubcat);
 
     useEffect(() => {
         if (updateData) {
-            handleClickOpen()
-            setValues(updateData)
+            handleClickOpen();
+            setValues(updateData);
+            setSizesAndStocks(updateData.sizesAndStocks || []); // Initialize sizesAndStocks
         }
-        dispatch(getClothCat())
-        dispatch(getClothSubCat())
-    }, [updateData])
+        dispatch(getClothCat());
+        dispatch(getClothSubCat());
+    }, [updateData]);
 
     const sizeSchema = yup.object({
         size: yup.string().required(),
         stock: yup.number().required(),
-    })
+    });
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -55,20 +54,14 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
     };
 
     let Clothschema = yup.object().shape({
-        category_id: yup.string()
-            .required(),
-        sub_id: yup.string()
-            .required(),
-        name: yup.string()
-            .required()
-            .matches(/^[a-zA-Z ]{2,30}$/, "Please Enter Valid Name"),
+        category_id: yup.string().required(),
+        sub_id: yup.string().required(),
+        name: yup.string().required().matches(/^[a-zA-Z ]{2,30}$/, "Please Enter Valid Name"),
         price: yup.string().required(),
         desc: yup.string().required(),
-        prec: yup
-            .mixed()
-            .required('Prescription is required'),
+        prec: yup.mixed().required('Prescription is required'),
         mrp: yup.string().required(),
-    })
+    });
 
     const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues, setFieldValue } = useFormik({
         validationSchema: Clothschema,
@@ -80,34 +73,30 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
             desc: '',
             prec: '',
             mrp: '',
+            sizesAndStocks: []
         },
         onSubmit: (values, action) => {
             let obj = {
                 ...values,
-                sizesAndStocks: values.sizesAndStocks.map((value) => {
-                    value.size,
-                    value.stock = parseInt(value.stock)
-                    return value;
-                })
+                sizesAndStocks: sizesAndStocks.map((value) => ({ ...value, stock: parseInt(value.stock) }))
             };
 
             let newData = JSON.parse(JSON.stringify(obj));
             console.log(newData);
-            // const mergedData = { ...obj };
-
-            // onHandleSubmit(mergedData)
             handleClose();
-            action.resetForm()
+            action.resetForm();
+            onHandleSubmit(newData);
         },
     });
 
     const handleSub = (value) => {
-        setCategory(value)
+        setCategory(value);
 
         const fData = clothsubcat.clothsubcat.filter((v) => v.category_id === value);
 
         setSubCategory(fData);
-    }
+    };
+
     return (
         <>
             <div className='d-flex align-items-center justify-content-between py-5'>
@@ -199,74 +188,48 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                         </div>
 
                         {sizesAndStocks.map((input, index) => (
-                            console.log(input),
-                            <Formik
-                                key={input.id}
-                                initialValues={{ size: input.size, stock: input.stock }}
-                                validationSchema={sizeSchema}
-                                onSubmit={(values, { setSubmitting }) => {
-                                    console.log(values);
-                                    handleAddSizeAndStock(values, input.id)
-                                    return false;
-                                }}
-                            >
-                                {({
-                                    values,
-                                    errors,
-                                    touched,
-                                    handleChange,
-                                    handleBlur,
-                                    handleSubmit,
-                                    isSubmitting,
-                                    /* and other goodies */
-                                }) => (
-                                    <form onSubmit={handleSubmit}>
-                                        <div style={{ display: 'flex', margin: '5px 0', height: '39px' }} key={input.id}>
+                            <div style={{ display: 'flex', margin: '5px 0', height: '39px' }} key={index}>
 
-                                            {/* Sizes */}
-                                            <div style={{ margin: "0 5px", width: '140px' }}>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    id={`ecommerce-product-size-${input.id}`}
-                                                    placeholder="size"
-                                                    name="size"
-                                                    aria-label="Product size"
-                                                    value={values.size}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                />
-                                                {errors.size && <p>{errors.size.message}</p>}
-                                            </div>
-                                            {/* Stock */}
-                                            <div style={{ margin: "0 5px", width: '100px' }}>
-                                                <input
-                                                    type="number"
-                                                    className="form-control"
-                                                    id={`ecommerce-product-stock-${input.id}`}
-                                                    placeholder="stock"
-                                                    name="stock"
-                                                    aria-label="Product stock"
-                                                    value={values.stock}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                />
-                                                {errors.stock && <p>{errors.stock.message}</p>}
-                                            </div>
+                                {/* Sizes */}
+                                <div style={{ margin: "0 5px", width: '140px' }}>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id={`ecommerce-product-size-${index}`}
+                                        placeholder="size"
+                                        name={`sizesAndStocks[${index}].size`}
+                                        aria-label="Product size"
+                                        value={input.size}
+                                        onChange={e => {
+                                            const updatedSizesAndStocks = [...sizesAndStocks];
+                                            updatedSizesAndStocks[index].size = e.target.value;
+                                            setSizesAndStocks(updatedSizesAndStocks);
+                                        }}
+                                        onBlur={handleBlur}
+                                    />
+                                    {errors.sizesAndStocks?.[index]?.size && <p>{errors.sizesAndStocks[index].size}</p>}
+                                </div>
+                                {/* Stock */}
+                                <div style={{ margin: "0 5px", width: '100px' }}>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        id={`ecommerce-product-stock-${index}`}
+                                        placeholder="stock"
+                                        name={`sizesAndStocks[${index}].stock`}
+                                        aria-label="Product stock"
+                                        value={input.stock}
+                                        onChange={e => {
+                                            const updatedSizesAndStocks = [...sizesAndStocks];
+                                            updatedSizesAndStocks[index].stock = e.target.value;
+                                            setSizesAndStocks(updatedSizesAndStocks);
+                                        }}
+                                        onBlur={handleBlur}
+                                    />
+                                    {errors.sizesAndStocks?.[index]?.stock && <p>{errors.sizesAndStocks[index].stock}</p>}
+                                </div>
 
-                                            {
-                                                !input.status ? <button type="button" onClick={handleSubmit} disabled={isSubmitting} id='add' key={input.id} disabled>
-                                                    <ArrowForwardIcon />
-                                                </button> :
-                                                    <button type="button" onClick={handleSubmit} disabled={isSubmitting} id='add' key={input.id}>
-                                                        <ArrowForwardIcon />
-                                                    </button>
-                                            }
-
-                                        </div>
-                                    </form>
-                                )}
-                            </Formik>
+                            </div>
                         ))}
 
                         {/* Button to add size and stock dynamically */}
