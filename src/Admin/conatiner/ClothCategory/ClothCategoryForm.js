@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import AddIcon from '@mui/icons-material/Add';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
-import { Formik, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
@@ -15,7 +15,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 function ClothCategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState('');
     const [subcategory, setSubCategory] = useState([]);
     const [sizesAndStocks, setSizesAndStocks] = useState([]);
 
@@ -25,19 +25,14 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
 
     useEffect(() => {
         if (updateData) {
-            handleClickOpen()
+            handleClickOpen();
             setValues(updateData);
             setSizesAndStocks(updateData.sizesAndStocks || []);
             setOpen(true);
         }
-        dispatch(getClothCat())
-        dispatch(getClothSubCat())
-    }, [updateData])
-
-    const sizeSchema = yup.object({
-        size: yup.string().required(),
-        stock: yup.number().required(),
-    })
+        dispatch(getClothCat());
+        dispatch(getClothSubCat());
+    }, [updateData]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -55,20 +50,16 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
     };
 
     let Clothschema = yup.object().shape({
-        category_id: yup.string()
-            .required(),
-        sub_id: yup.string()
-            .required(),
+        category_id: yup.string().required(),
+        sub_id: yup.string().required(),
         name: yup.string()
             .required()
             .matches(/^[a-zA-Z ]{2,30}$/, "Please Enter Valid Name"),
-        price: yup.string().required(),
+        price: yup.number().positive().required(),
         desc: yup.string().required(),
-        prec: yup
-            .mixed()
-            .required('Prescription is required'),
-        mrp: yup.string().required(),
-    })
+        prec: yup.mixed().required('Prescription is required'),
+        mrp: yup.number().positive().required(),
+    });
 
     const { handleSubmit, handleChange, handleBlur, values, errors, touched, setValues, setFieldValue } = useFormik({
         validationSchema: Clothschema,
@@ -97,12 +88,34 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
     });
 
     const handleSub = (value) => {
-        setCategory(value)
+        setCategory(value);
 
         const fData = clothsubcat.clothsubcat.filter((v) => v.category_id === value);
 
         setSubCategory(fData);
-    }
+    };
+
+    const handleSizeChange = (e, index) => {
+        const updatedSizesAndStocks = [...sizesAndStocks];
+        updatedSizesAndStocks[index] = {
+            ...updatedSizesAndStocks[index],
+            size: e.target.value
+        };
+        setSizesAndStocks(updatedSizesAndStocks);
+    };
+
+    const handleStockChange = (e, index) => {
+        const stockValue = parseInt(e.target.value);
+        if (!isNaN(stockValue) && stockValue >= 0) {
+            const updatedSizesAndStocks = [...sizesAndStocks];
+            updatedSizesAndStocks[index] = {
+                ...updatedSizesAndStocks[index],
+                stock: stockValue
+            };
+            setSizesAndStocks(updatedSizesAndStocks);
+        }
+    };
+
     return (
         <>
             <div className='d-flex align-items-center justify-content-between py-5'>
@@ -206,11 +219,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                                         name={`sizesAndStocks[${index}].size`}
                                         aria-label="Product size"
                                         value={input.size}
-                                        onChange={e => {
-                                            const updatedSizesAndStocks = [...sizesAndStocks];
-                                            updatedSizesAndStocks[index].size = e.target.value;
-                                            setSizesAndStocks(updatedSizesAndStocks);
-                                        }}
+                                        onChange={e => handleSizeChange(e, index)}
                                         onBlur={handleBlur}
                                     />
                                     {errors.sizesAndStocks?.[index]?.size && <p>{errors.sizesAndStocks[index].size}</p>}
@@ -225,11 +234,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                                         name={`sizesAndStocks[${index}].stock`}
                                         aria-label="Product stock"
                                         value={input.stock}
-                                        onChange={e => {
-                                            const updatedSizesAndStocks = [...sizesAndStocks];
-                                            updatedSizesAndStocks[index].stock = e.target.value;
-                                            setSizesAndStocks(updatedSizesAndStocks);
-                                        }}
+                                        onChange={e => handleStockChange(e, index)}
                                         onBlur={handleBlur}
                                     />
                                     {errors.sizesAndStocks?.[index]?.stock && <p>{errors.sizesAndStocks[index].stock}</p>}
