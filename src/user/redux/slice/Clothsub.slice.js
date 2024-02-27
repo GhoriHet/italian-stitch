@@ -4,7 +4,7 @@ import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase
 
 const initialState = {
     isLoading: false,
-    clothsubcat: [],
+    subcategory: [],
     error: null
 }
 
@@ -18,8 +18,8 @@ const onError = (state, action) => {
     state.error = action.error.message;
 }
 
-export const getClothSubCat = createAsyncThunk(
-    'clothsubcat/get',
+export const getSubcategory = createAsyncThunk(
+    'subcategory/get',
     async () => {
 
         let data = []
@@ -33,8 +33,8 @@ export const getClothSubCat = createAsyncThunk(
     }
 )
 
-export const addClothSubCat = createAsyncThunk(
-    'clothsubcat/post',
+export const addSubcategory = createAsyncThunk(
+    'subcategory/post',
     async (data) => {
 
         try {
@@ -48,8 +48,8 @@ export const addClothSubCat = createAsyncThunk(
     }
 )
 
-export const deleteClothSubCat = createAsyncThunk(
-    'clothsubcat/delete',
+export const deleteSubcategory = createAsyncThunk(
+    'subcategory/delete',
     async (id) => {
 
         await deleteDoc(doc(db, "subcategory", id));
@@ -58,8 +58,8 @@ export const deleteClothSubCat = createAsyncThunk(
     }
 )
 
-export const updateClothSubCat = createAsyncThunk(
-    'clothsubcat/put',
+export const updateSubcategory = createAsyncThunk(
+    'subcategory/put',
     async (data) => {
         const washingtonRef = doc(db, "subcategory", data.id);
 
@@ -72,32 +72,32 @@ export const updateClothSubCat = createAsyncThunk(
     }
 )
 
-export const ClothsubSlice = createSlice({
-    name: 'ClothSubCat',
+export const subcategorySlice = createSlice({
+    name: 'subcategory',
     initialState: initialState,
     reducers: {},
     extraReducers: (builder) => {
 
-        builder.addCase(getClothSubCat.pending, onLoading);
+        builder.addCase(getSubcategory.pending, onLoading);
 
-        builder.addCase(getClothSubCat.fulfilled, (state, action) => {
-            state.clothsubcat = action.payload;
+        builder.addCase(getSubcategory.fulfilled, (state, action) => {
+            state.subcategory = action.payload;
             state.isLoading = false;
             state.error = null;
         })
 
-        builder.addCase(getClothSubCat.rejected, onError);
+        builder.addCase(getSubcategory.rejected, onError);
 
-        builder.addCase(addClothSubCat.fulfilled, (state, action) => {
-            state.clothsubcat = state.clothsubcat.concat(action.payload)
+        builder.addCase(addSubcategory.fulfilled, (state, action) => {
+            state.subcategory = state.subcategory.concat(action.payload)
         })
 
-        builder.addCase(deleteClothSubCat.fulfilled, (state, action) => {
-            state.clothsubcat = state.clothsubcat.filter((v) => v.id !== action.payload)
+        builder.addCase(deleteSubcategory.fulfilled, (state, action) => {
+            state.subcategory = state.subcategory.filter((v) => v.id !== action.payload)
         })
 
-        builder.addCase(updateClothSubCat.fulfilled, (state, action) => {
-            state.clothsubcat = state.clothsubcat.map((v) => {
+        builder.addCase(updateSubcategory.fulfilled, (state, action) => {
+            state.subcategory = state.subcategory.map((v) => {
                 if (v.id === action.payload.id) {
                     return action.payload;
                 } else {
@@ -108,4 +108,4 @@ export const ClothsubSlice = createSlice({
     }
 })
 
-export default ClothsubSlice.reducer;
+export default subcategorySlice.reducer;

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { authReducer } from "./auth.reducer";
 import AlertSlice from "../slice/Alert.slice";
-import ClothsubSlice from "../slice/Clothsub.slice";
+import subcategorySlice from "../slice/Clothsub.slice";
 import { cartReducer } from "./cart.reducer";
 import { favouriteReducer } from "./favourite.reducer";
 import ClothCategoryReducer from "../slice/ClothCategorySlice";
@@ -13,7 +13,7 @@ export const rootReducer = combineReducers({
     auth: authReducer,
     alert: AlertSlice,
     category: categorySlice,
-    clothsubcat: ClothsubSlice,
+    subcategory: subcategorySlice,
     cart: cartReducer,
     favourites: favouriteReducer,
     clothcategory: ClothCategoryReducer,

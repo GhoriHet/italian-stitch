@@ -13,8 +13,8 @@ import ProductForm from './ProductForm';
 export default function Product(props) {
     const [update, setUpdate] = useState(false);
     const clothcategory = useSelector(state => state.clothcategory);
-    const clothcat = useSelector((state) => state.clothcat);
-    const clothsubcat = useSelector((state) => state.clothsubcat);
+    const category = useSelector((state) => state.category);
+    const subcategory = useSelector((state) => state.subcategory);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -52,14 +52,14 @@ export default function Product(props) {
         {
             field: 'category_id', headerName: 'Category Name', flex: 2,
             renderCell: (params) => {
-                const fData = clothcat.clothcat.filter((v) => v.id === params.row.category_id);
+                const fData = category.category.filter((v) => v.id === params.row.category_id);
                 return fData.length > 0 ? fData[0].category_name : null;
             }
         },
         {
             field: 'sub_id', headerName: 'Subcategory Name', flex: 2,
             renderCell: (params) => {
-                const fData = clothsubcat.clothsubcat.filter((v) => v.id === params.row.sub_id);
+                const fData = subcategory.subcategory.filter((v) => v.id === params.row.sub_id);
                 return fData.length > 0 ? fData[0].sub_name : null;
             }
         },

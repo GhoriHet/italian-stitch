@@ -5,7 +5,7 @@ import { logoutRequest } from '../../redux/action/auth.action';
 import Badge from '@mui/material/Badge';
 import CartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { getClothSubCat } from '../../redux/slice/Clothsub.slice';
+import { getSubcategory } from '../../redux/slice/Clothsub.slice';
 import './header.css';
 import { getCategory } from '../../redux/slice/category.slice';
 
@@ -13,12 +13,12 @@ function Header(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const clothsubcat = useSelector(state => state.clothsubcat);
+    const subcategory = useSelector(state => state.subcategory);
     const category = useSelector(state => state.category);
     const auth = useSelector(state => state.auth)
 
     React.useEffect(() => {
-        dispatch(getClothSubCat())
+        dispatch(getSubcategory())
         dispatch(getCategory())
     }, [])
 
@@ -134,7 +134,7 @@ function Header(props) {
                                                         <NavLink to={"/product/" + value.category_name + '/' + value.id}><h4 className="title">{value.category_name}</h4></NavLink>
                                                         <ul>
                                                             {
-                                                                clothsubcat.clothsubcat.map((subCategory) => {
+                                                                subcategory.subcategory.map((subCategory) => {
                                                                     if (value.id === subCategory.category_id) {
                                                                         return (
                                                                             <li key={subCategory.id}><Link to={'/shop/' + subCategory.id}>{subCategory.sub_name}</Link></li>
@@ -182,13 +182,13 @@ function Header(props) {
 
                     <div className="header-item item-right">
                         {/* <form> */}
-                            <div className='searchbar-view'>
-                                {/* <button type="submit" className='rilrtl-button' aria-label="search"></button> */}
-                                <div className='react-autosuggest__container react-autosuggest__container--open'>
-                                    <input autoComplete='off' aria-label='Search Italian Stitch' className='react-autosuggest__input react-autosuggest__input--open' placeholder='Search Italian Stitch' />
-                                </div>
-
+                        <div className='searchbar-view'>
+                            {/* <button type="submit" className='rilrtl-button' aria-label="search"></button> */}
+                            <div className='react-autosuggest__container react-autosuggest__container--open'>
+                                <input autoComplete='off' aria-label='Search Italian Stitch' className='react-autosuggest__input react-autosuggest__input--open' placeholder='Search Italian Stitch' />
                             </div>
+
+                        </div>
                         {/* </form> */}
                         <Link to='/cart'>
                             <Badge className='ms-3' id="cartCSS" badgeContent={addedCartData} color="success">

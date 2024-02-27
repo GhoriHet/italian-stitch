@@ -10,19 +10,20 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 // import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
-import { getClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
+// import { getClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { getCategory } from '../../../user/redux/slice/category.slice';
+import { getSubcategory } from '../../../user/redux/slice/Clothsub.slice';
 
 function ProductForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
     const [categoryData, setCategoryData] = useState('');
-    const [subcategory, setSubCategory] = useState([]);
+    const [subcategoryData, setSubCategoryData] = useState([]);
     const [sizesAndStocks, setSizesAndStocks] = useState([{ size: null, stock: null }]);
 
     const dispatch = useDispatch();
     const category = useSelector(state => state.category);
-    const clothsubcat = useSelector(state => state.clothsubcat);
+    const subcategory = useSelector(state => state.subcategory);
 
     useEffect(() => {
         if (updateData) {
@@ -32,7 +33,7 @@ function ProductForm({ onHandleSubmit, updateData }) {
             setOpen(true);
         }
         dispatch(getCategory());
-        dispatch(getClothSubCat());
+        dispatch(getSubcategory());
     }, [updateData]);
 
     const handleClickOpen = () => {
@@ -91,9 +92,9 @@ function ProductForm({ onHandleSubmit, updateData }) {
     const handleSub = (value) => {
         setCategoryData(value);
 
-        const fData = clothsubcat.clothsubcat.filter((v) => v.category_id === value);
+        const fData = subcategory.subcategory.filter((v) => v.category_id === value);
 
-        setSubCategory(fData);
+        setSubCategoryData(fData);
     };
 
     const handleSizeChange = (e, index) => {
@@ -165,7 +166,7 @@ function ProductForm({ onHandleSubmit, updateData }) {
 
                                 <option value='0'>Select</option>
                                 {
-                                    subcategory.map((v) => (
+                                    subcategoryData.map((v) => (
                                         <option key={v.id} value={v.id}>
                                             {v.sub_name}
                                         </option>

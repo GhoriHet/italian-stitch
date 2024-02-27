@@ -6,34 +6,34 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import { useState, useEffect } from 'react';
-import { addClothSubCat, deleteClothSubCat, getClothSubCat, updateClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
+import { addSubcategory, deleteSubcategory, getSubcategory, updateSubcategory } from '../../../user/redux/slice/Clothsub.slice';
 
 function SubCategory() {
     const [update, setUpdate] = useState(false)
 
     const dispatch = useDispatch();
 
-    const clothsubcat = useSelector(state => state.clothsubcat);
+    const subcategory = useSelector(state => state.subcategory);
     const category = useSelector(state => state.category);
 
     useEffect(() => {
-        dispatch(getClothSubCat())
+        dispatch(getSubcategory())
     }, [])
 
     const handleSubmitForm = (data) => {
         if (update) {
-            dispatch(updateClothSubCat(data))
+            dispatch(updateSubcategory(data))
             dispatch(setAlert({ text: 'SubCategory successfully update', color: 'success' }))
         } else {
-            dispatch(addClothSubCat(data))
+            dispatch(addSubcategory(data))
             dispatch(setAlert({ text: 'SubCategory successfully added', color: 'success' }))
         }
         setUpdate(false)
     }
 
     const handleDelete = (id) => {
-        dispatch(deleteClothSubCat(id))
+        dispatch(deleteSubcategory(id))
         dispatch(setAlert({ text: 'SubCategory successfully deleted', color: 'success' }))
     }
 
@@ -73,7 +73,7 @@ function SubCategory() {
             <SubCategoryForm onHandleSubmit={handleSubmitForm} updateData={update} />
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={clothsubcat.clothsubcat}
+                    rows={subcategory.subcategory}
                     columns={columns}
                     initialState={{
                         pagination: {
