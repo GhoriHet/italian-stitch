@@ -24,17 +24,17 @@ function SubCategory() {
     const handleSubmitForm = (data) => {
         if (update) {
             dispatch(updateClothSubCat(data))
-            dispatch(setAlert({ text: 'Cloth SubCategory successfully update', color: 'success' }))
+            dispatch(setAlert({ text: 'SubCategory successfully update', color: 'success' }))
         } else {
             dispatch(addClothSubCat(data))
-            dispatch(setAlert({ text: 'Cloth SubCategory successfully added', color: 'success' }))
+            dispatch(setAlert({ text: 'SubCategory successfully added', color: 'success' }))
         }
         setUpdate(false)
     }
 
     const handleDelete = (id) => {
         dispatch(deleteClothSubCat(id))
-        dispatch(setAlert({ text: 'Cloth SubCategory successfully deleted', color: 'success' }))
+        dispatch(setAlert({ text: 'SubCategory successfully deleted', color: 'success' }))
     }
 
     const handleUpdate = (data) => {

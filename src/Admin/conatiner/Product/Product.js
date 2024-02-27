@@ -4,13 +4,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from 'react-redux';
-import ClothCategoryForm from './ClothCategoryForm';
 import { addClothCategory, deleteClothCategory, getClothCategory, updateClothCategory } from '../../../user/redux/slice/ClothCategorySlice';
 import Loader from '../../../user/UI/loader/Loader';
 import ErrorMsg from '../../../user/UI/errorMsg/ErrorMsg';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
+import ProductForm from './ProductForm';
 
-export default function ClothCategory(props) {
+export default function Product(props) {
     const [update, setUpdate] = useState(false);
     const clothcategory = useSelector(state => state.clothcategory);
     const clothcat = useSelector((state) => state.clothcat);
@@ -97,7 +97,7 @@ export default function ClothCategory(props) {
                 clothcategory.error ?
                     <ErrorMsg style={{ height: "calc(100vh - 64px" }} text={clothcategory.error} /> :
                     <>
-                        <ClothCategoryForm onHandleSubmit={handleFormSubmit} updateData={update} />
+                        <ProductForm onHandleSubmit={handleFormSubmit} updateData={update} />
                         <DataGrid
                             columns={columns}
                             rows={clothcategory.clothcategory}

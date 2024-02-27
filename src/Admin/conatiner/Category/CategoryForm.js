@@ -9,7 +9,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useEffect } from 'react';
 
-function ClothCatForm({ onHandleSubmit, updateData }) {
+function CategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
@@ -50,29 +50,20 @@ function ClothCatForm({ onHandleSubmit, updateData }) {
     return (
         <>
             <div className='d-flex align-items-center justify-content-between py-4'>
-                <h3 className='mb-0' style={{ color: '#FF6337' }}>Cloth Category</h3>
-                <Button type="button" variant="contained" onClick={handleClickOpen}>Cloth Category<AddIcon fontSize="small" /></Button>
+                <h3 className='mb-0' style={{ color: '#FF6337' }}>Category</h3>
+                <Button type="button" variant="contained" onClick={handleClickOpen}>Category<AddIcon fontSize="small" /></Button>
             </div>
             <Dialog id='addModal' open={open}>
                 <DialogTitle style={{ fontSize: '24px' }} className='px-5 pt-4 pb-0 text-center '>Cloth Category</DialogTitle>
                 <DialogContent className='px-5 pb-4'>
                     <form className='row' onSubmit={handleSubmit} style={{ width: "500px" }}>
-                        {/* <div className="col-12 mb-3 form_field position-relative">
-                            <TextField className='m-0' margin="dense" id="mediName" label="Name" type="text" fullWidth name='category_name' variant="standard"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.category_name}
-                            />
-                            
-                        </div> */}
 
                         <div className="col-12 mb-3 form_field position-relative">
                             <label className="form-label" htmlFor="ecommerce-product-name">Category Name</label>
-                            <input type="text" className="form-control" id="ecommerce-product-name" placeholder="Category Name" aria-label="Category title" name="name"
+                            <input type="text" className="form-control" id="ecommerce-product-name" placeholder="Category Name" aria-label="Category title" name="category_name"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.category_name}
-                                required
                             />
                             {errors.category_name && touched.category_name ? (
                                 <span className="d-block position-absolute form-error" style={{ color: 'red', fontSize: '14px', position: 'absolute' }}>{errors.category_name}</span>
@@ -81,7 +72,7 @@ function ClothCatForm({ onHandleSubmit, updateData }) {
 
                         <div className='pt-3 col-12 text-center'>
                             <Button className='me-3' onClick={handleClose}>Cancel</Button>
-                            <Button type="submit" variant="contained">Submit</Button>
+                            <Button type="submit" variant="contained">{updateData ? 'Update' : 'Add'}</Button>
                         </div>
                     </form>
                 </DialogContent>
@@ -90,4 +81,4 @@ function ClothCatForm({ onHandleSubmit, updateData }) {
     );
 }
 
-export default ClothCatForm;
+export default CategoryForm;

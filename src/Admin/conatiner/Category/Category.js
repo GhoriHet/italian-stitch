@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import WatchCatForm from './ClothCatForm';
+import CategoryForm from './CategoryForm';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import { addClothCat, deleteClothCat, getClothCat, updateClothCat } from '../../../user/redux/slice/clothcat.slice';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
 
-function ClothCat(props) {
+function Category(props) {
     const [update, setUpdate] = useState(false)
 
     const dispatch = useDispatch()
@@ -23,16 +23,16 @@ function ClothCat(props) {
     const handleSubmitForm = (data) => {
         if (update) {
             dispatch(updateClothCat(data))
-            dispatch(setAlert({ text: 'Cloth Category successfully update', color: 'success' }))
+            dispatch(setAlert({ text: 'Category successfully update', color: 'success' }))
         } else {
             dispatch(addClothCat(data))
-            dispatch(setAlert({ text: 'Cloth Category successfully added', color: 'success' }))
+            dispatch(setAlert({ text: 'Category successfully added', color: 'success' }))
         }
         setUpdate(false)
     }
 
     const handleDelete = (id) => {
-        dispatch(setAlert({ text: 'Cloth Category successfully deleted', color: 'success' }))
+        dispatch(setAlert({ text: 'Category successfully deleted', color: 'success' }))
         dispatch(deleteClothCat(id))
     }
 
@@ -62,7 +62,7 @@ function ClothCat(props) {
     return (
         <div>
             <h2>Watch Category</h2>
-            <WatchCatForm onHandleSubmit={handleSubmitForm} updateData={update} />
+            <CategoryForm onHandleSubmit={handleSubmitForm} updateData={update} />
 
             <div sx={{ height: 400, width: '100%' }}>
                 <DataGrid
@@ -84,4 +84,4 @@ function ClothCat(props) {
     );
 }
 
-export default ClothCat;
+export default Category;

@@ -107,7 +107,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                         </div>
                         <div className='pt-3 col-12 text-center'>
                             <Button className='me-3' onClick={handleClose}>Cancel</Button>
-                            <Button type="submit" variant="contained">Submit</Button>
+                            <Button type="submit" variant="contained">{updateData ? 'Update' : 'Add'}</Button>
                         </div>
                     </form>
                 </DialogContent>

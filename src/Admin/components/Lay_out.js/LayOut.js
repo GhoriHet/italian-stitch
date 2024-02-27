@@ -40,7 +40,7 @@ function Lay_out({ children }) {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/admin/ClothCat">
+                            <NavLink to="/admin/category">
                                 <CategoryIcon style={{ marginRight: '18px', fontSize: '28px', color: '#707070' }} />
                                 <span className="link-name">Category</span>
                             </NavLink>
@@ -48,11 +48,11 @@ function Lay_out({ children }) {
                         <li>
                             <NavLink to="/admin/subcategory">
                                 <ClassIcon style={{ marginRight: '18px', fontSize: '28px', color: '#707070' }} />
-                                <span className="link-name">SubCategory</span>
+                                <span className="link-name">Subcategory</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/admin/clothCategory">
+                            <NavLink to="/admin/product">
                                 <AddShoppingCartIcon style={{ marginRight: '18px', fontSize: '28px', color: '#707070' }} />
                                 <span className="link-name">Product</span>
                             </NavLink>

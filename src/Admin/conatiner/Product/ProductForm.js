@@ -13,7 +13,7 @@ import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
 import { getClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-function ClothCategoryForm({ onHandleSubmit, updateData }) {
+function ProductForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
     const [category, setCategory] = useState('');
     const [subcategory, setSubCategory] = useState([]);
@@ -296,4 +296,4 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
     );
 }
 
-export default ClothCategoryForm;
+export default ProductForm;
