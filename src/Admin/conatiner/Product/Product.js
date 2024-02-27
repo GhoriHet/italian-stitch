@@ -4,43 +4,43 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { addClothCategory, deleteClothCategory, getClothCategory, updateClothCategory } from '../../../user/redux/slice/ClothCategorySlice';
 import Loader from '../../../user/UI/loader/Loader';
 import ErrorMsg from '../../../user/UI/errorMsg/ErrorMsg';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
 import ProductForm from './ProductForm';
+import { addProduct, deleteProduct, getProduct, updateProduct } from '../../../user/redux/slice/ClothCategorySlice';
 
 export default function Product(props) {
     const [update, setUpdate] = useState(false);
-    const clothcategory = useSelector(state => state.clothcategory);
+    const product = useSelector(state => state.product);
     const category = useSelector((state) => state.category);
     const subcategory = useSelector((state) => state.subcategory);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getClothCategory());
+        dispatch(getProduct());
     }, []);
 
     const handleFormSubmit = (data) => {
-        let localData = JSON.parse(localStorage.getItem("ClothCategory"));
+        let localData = JSON.parse(localStorage.getItem("product"));
         let id = Math.floor(Math.random() * 1000);
 
         if (localData) {
             if (update) {
-                dispatch(updateClothCategory(data));
+                dispatch(updateProduct(data));
                 dispatch(setAlert({ text: 'Product successfully updated', color: 'success' }));
             } else {
-                dispatch(addClothCategory(data));
-                dispatch(setAlert({ text: 'product successfully added', color: 'success' }));
+                dispatch(addProduct(data));
+                dispatch(setAlert({ text: 'Product successfully added', color: 'success' }));
             }
         } else {
-            localStorage.setItem("ClothCategory", JSON.stringify([{ id, ...data }]));
+            localStorage.setItem("product", JSON.stringify([{ id, ...data }]));
         }
         setUpdate(false);
     };
 
     const handleDelete = (data) => {
-        dispatch(deleteClothCategory(data));
+        dispatch(deleteProduct(data));
         dispatch(setAlert({ text: 'Product successfully deleted', color: 'success' }));
     };
 
@@ -92,15 +92,15 @@ export default function Product(props) {
 
     return (
         <div className='data_table' style={{ height: 400, width: '100%' }}>
-            {clothcategory.loading ?
+            {product.loading ?
                 <Loader style={{ height: 'calc(100vh - 64px' }} /> :
-                clothcategory.error ?
-                    <ErrorMsg style={{ height: "calc(100vh - 64px" }} text={clothcategory.error} /> :
+                product.error ?
+                    <ErrorMsg style={{ height: "calc(100vh - 64px" }} text={product.error} /> :
                     <>
                         <ProductForm onHandleSubmit={handleFormSubmit} updateData={update} />
                         <DataGrid
                             columns={columns}
-                            rows={clothcategory.clothcategory}
+                            rows={product.product}
                             initialState={{
                                 pagination: {
                                     paginationModel: { page: 0, pageSize: 10 },

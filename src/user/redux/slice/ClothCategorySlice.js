@@ -6,7 +6,7 @@ import { db, storage } from '../../../firebase'
 
 const initialState = {
     isLoading: false,
-    clothcategory: [],
+    product: [],
     error: null
 }
 
@@ -20,8 +20,8 @@ const onError = (state, action) => {
     state.error = action.error.message;
 }
 
-export const getClothCategory = createAsyncThunk(
-    'ClothCategory/get',
+export const getProduct = createAsyncThunk(
+    'product/get',
     async () => {
         try {
             const data = []
@@ -39,8 +39,8 @@ export const getClothCategory = createAsyncThunk(
     }
 )
 
-export const addClothCategory = createAsyncThunk(
-    'ClothCategory/post',
+export const addProduct = createAsyncThunk(
+    'product/post',
     async (data) => {
         let iData = { ...data }
         try {
@@ -66,8 +66,8 @@ export const addClothCategory = createAsyncThunk(
     }
 )
 
-export const deleteClothCategory = createAsyncThunk(
-    'ClothCategory/delete',
+export const deleteProduct = createAsyncThunk(
+    'product/delete',
     async (data) => {
         try {
             const aptRef = ref(storage, 'prec/' + data.imgName);
@@ -75,14 +75,14 @@ export const deleteClothCategory = createAsyncThunk(
                 await deleteDoc(doc(db, "product", data.id));
             });
         } catch (error) {
-            console.error("Error deleting clothcategory: ", error);
+            console.error("Error deleting product: ", error);
         }
         return data.id;
     }
 )
 
-export const updateClothCategory = createAsyncThunk(
-    'ClothCategory/put',
+export const updateProduct = createAsyncThunk(
+    'product/put',
     async (data) => {
         try {
             if (typeof data.prec === 'string') {
@@ -124,33 +124,33 @@ export const updateClothCategory = createAsyncThunk(
     }
 )
 
-export const clothCategory = createSlice({
-    name: 'ClothCategory',
+export const productSlice = createSlice({
+    name: 'product',
     initialState: initialState,
     reducers: {},
 
     extraReducers: (builder) => {
 
-        builder.addCase(getClothCategory.pending, onLoading);
+        builder.addCase(getProduct.pending, onLoading);
 
-        builder.addCase(getClothCategory.fulfilled, (state, action) => {
-            state.clothcategory = action.payload;
+        builder.addCase(getProduct.fulfilled, (state, action) => {
+            state.product = action.payload;
             state.isLoading = false;
             state.error = null;
         });
 
-        builder.addCase(getClothCategory.rejected, onError);
+        builder.addCase(getProduct.rejected, onError);
 
-        builder.addCase(addClothCategory.fulfilled, (state, action) => {
-            state.clothcategory = state.clothcategory.concat(action.payload)
+        builder.addCase(addProduct.fulfilled, (state, action) => {
+            state.product = state.product.concat(action.payload)
         });
 
-        builder.addCase(deleteClothCategory.fulfilled, (state, action) => {
-            state.clothcategory = state.clothcategory.filter((v) => v.id !== action.payload)
+        builder.addCase(deleteProduct.fulfilled, (state, action) => {
+            state.product = state.product.filter((v) => v.id !== action.payload)
         });
 
-        builder.addCase(updateClothCategory.fulfilled, (state, action) => {
-            state.clothcategory = state.clothcategory.map((v) => {
+        builder.addCase(updateProduct.fulfilled, (state, action) => {
+            state.product = state.product.map((v) => {
                 if (v.id === action.payload.id) {
                     return action.payload;
                 } else {
@@ -161,4 +161,4 @@ export const clothCategory = createSlice({
     }
 });
 
-export default clothCategory.reducer;
+export default productSlice.reducer;

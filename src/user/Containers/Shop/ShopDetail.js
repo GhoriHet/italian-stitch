@@ -1,28 +1,28 @@
 import React from 'react';
-import { getClothCategory } from '../../redux/slice/ClothCategorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { addToCart } from '../../redux/action/cart.action';
 import { setAlert } from '../../redux/slice/Alert.slice';
+import { getProduct } from '../../redux/slice/ClothCategorySlice';
 
 function ShopDetail(props) {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const clothcategory = useSelector((state => state.clothcategory))
+    const product = useSelector((state => state.product))
 
     React.useEffect(() => {
-        dispatch(getClothCategory())
+        dispatch(getProduct())
     }, [id]);
 
     const handleCart = (id) => {
-        let addedCartItem = clothcategory.clothcategory.find((val) => val.id === id)
+        let addedCartItem = product.product.find((val) => val.id === id)
         dispatch(setAlert({ text: addedCartItem.name + ' cloth is successfully added in cart', color: 'success' }))
         dispatch(addToCart(id));
     }
 
     return (
         <div>
-            {clothcategory.clothcategory.map((item, index) => {
+            {product.product.map((item, index) => {
                 if (item.id === id) {
                     return (
                         <section id='prodetails' className='section-p1'>

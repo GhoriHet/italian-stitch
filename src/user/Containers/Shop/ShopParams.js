@@ -1,19 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getClothCategory } from '../../redux/slice/ClothCategorySlice';
 import './shop.css'
 import { NavLink } from 'react-router-dom';
+import { getProduct } from '../../redux/slice/ClothCategorySlice';
 
 function ShopParams(props) {
     const { id } = useParams();
-    const clothcategory = useSelector((state => state.clothcategory.clothcategory))
+    const product = useSelector((state => state.product.product))
     const dispatch = useDispatch();
     const [filteredData, setFilteredData] = React.useState([]);
 
     React.useEffect(() => {
-        dispatch(getClothCategory());
-        const filtered = clothcategory.filter(item => item.sub_id === id);
+        dispatch(getProduct());
+        const filtered = product.filter(item => item.sub_id === id);
         setFilteredData(filtered);
     }, [id]);
 

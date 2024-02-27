@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOrder, updateOrderStatus } from '../../../user/redux/slice/OrderSlice';
-import { getClothCategory } from '../../../user/redux/slice/ClothCategorySlice';
+import { getProduct } from '../../../user/redux/slice/ClothCategorySlice';
 
 function OrderDetails(props) {
     const { id } = useParams();
     const order = useSelector((state => state.order))
-    const clothcategory = useSelector((state => state.clothcategory))
+    const product = useSelector((state => state.product))
     const dispatch = useDispatch();
     const [filteredData, setFilteredData] = React.useState([]);
     const [productData, setProductData] = React.useState([]);
@@ -19,14 +19,14 @@ function OrderDetails(props) {
         const filtered = order.order.filter(item => item.id === id);
         setFilteredData(filtered);
 
-        dispatch(getClothCategory(id));
+        dispatch(getProduct(id));
 
     }, [dispatch, id, order.order]);
 
     React.useEffect(() => {
         let orderMap = filteredData.map((orderData) => {
             let orderItemData = orderData.items.map((OrderItems) => {
-                let productDataFilter = clothcategory.clothcategory.find((productData) => {
+                let productDataFilter = product.product.find((productData) => {
                     return OrderItems.productID === productData.id;
                 });
                 return { ...productDataFilter, ...orderData }
@@ -37,7 +37,7 @@ function OrderDetails(props) {
         orderMap = orderMap.flat();
 
         setProductData(orderMap);
-    }, [filteredData, clothcategory.clothcategory]);
+    }, [filteredData, product.product]);
 
     const handleStatusChanged = () => {
         dispatch(updateOrderStatus({ orderId: id, newStatus: selectedStatus }))

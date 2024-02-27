@@ -15,8 +15,8 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { NavLink } from 'react-router-dom';
 import { addOrder } from '../../redux/slice/OrderSlice';
-import { getClothCategory } from '../../redux/slice/ClothCategorySlice';
 import { adduserInfoData, updateUserData } from '../../redux/slice/UserInfoSlice';
+import { getProduct } from '../../redux/slice/ClothCategorySlice';
 
 const validationSchema = Yup.object({
     name: Yup.string().required(),
@@ -31,7 +31,7 @@ const validationSchema = Yup.object({
 
 function Cart() {
 
-    const clothcategory = useSelector((state) => state.clothcategory);
+    const product = useSelector((state) => state.product);
     const cartState = useSelector((state) => state.cart);
     const userState = useSelector((state) => state.auth);
 
@@ -47,11 +47,11 @@ function Cart() {
     ];
 
     useEffect(() => {
-        dispatch(getClothCategory())
+        dispatch(getProduct())
     }, [dispatch])
 
     let mediToCartData = cartState.items.map((cartItem) => {
-        let filterData = clothcategory.clothcategory.find((medicine) => medicine.id === cartItem.pid);
+        let filterData = product.product.find((medicine) => medicine.id === cartItem.pid);
         return { ...filterData, ...cartItem }
     })
 
@@ -71,7 +71,7 @@ function Cart() {
     }
 
     const removeFromCart = (id) => {
-        let addedCartItem = clothcategory.clothcategory.find((val) => val.id === id)
+        let addedCartItem = product.product.find((val) => val.id === id)
         dispatch(setAlert({ text: addedCartItem.name + ' cloth is successfully removed from cart', color: 'success' }))
         dispatch(removeItemFromCart(id));
     }

@@ -6,23 +6,23 @@ import ShopList from './ShopList';
 import { addToCart } from '../../redux/action/cart.action';
 import { setAlert } from '../../redux/slice/Alert.slice';
 import { addOnStoreAndAPI, removeOnStoreAndAPI } from '../../redux/action/favourite.action';
-import { getClothCategory } from '../../redux/slice/ClothCategorySlice';
+import { getProduct } from '../../redux/slice/ClothCategorySlice';
 
 function Shop({ categoryId }) {
     const dispatch = useDispatch();
     const [filteredData, setFilteredData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
-    const clothcategory = useSelector(state => state.clothcategory)
+    const product = useSelector(state => state.product)
     const favouriteState = useSelector(state => state.favourites);
 
     useEffect(() => {
-        dispatch(getClothCategory());
+        dispatch(getProduct());
     }, [dispatch]);
 
     const handleSearching = (value) => {
         setSearchValue(value);
-        const f_dataBySearch = clothcategory.clothcategory.filter(
+        const f_dataBySearch = product.product.filter(
             (v) =>
                 v.name.toLowerCase().includes(value.toLowerCase()) ||
                 v.price.toString().includes(value) ||
@@ -32,18 +32,18 @@ function Shop({ categoryId }) {
     };
 
     const handleCart = (id) => {
-        let addedCartItem = clothcategory.clothcategory.find((val) => val.id === id)
+        let addedCartItem = product.product.find((val) => val.id === id)
         dispatch(setAlert({ text: addedCartItem.name + ' cloth is successfully added in cart', color: 'success' }))
         dispatch(addToCart(id));
     }
     const addToFavourite = (id) => {
-        let addedFavouriteItem = clothcategory.clothcategory.find((val) => val.id === id)
+        let addedFavouriteItem = product.product.find((val) => val.id === id)
         dispatch(setAlert({ text: addedFavouriteItem.name + ' is successfully added in Favourite', color: 'success' }))
         dispatch(addOnStoreAndAPI(id))
     }
 
     const removeToFavourite = (id) => {
-        let removeFavouriteItem = clothcategory.clothcategory.find((val) => val.id === id)
+        let removeFavouriteItem = product.product.find((val) => val.id === id)
         dispatch(setAlert({ text: removeFavouriteItem.name + ' is successfully removed from Favourite', color: 'success' }))
         dispatch(removeOnStoreAndAPI(id))
     }
@@ -74,12 +74,12 @@ function Shop({ categoryId }) {
             <section id="product1" className="section-p1">
                 <div className="row py-5 g-4">
                     <ShopList
-                        shopData={searchValue !== '' ? filteredData : clothcategory.clothcategory}
+                        shopData={searchValue !== '' ? filteredData : product.product}
                         handleCart={handleCart}
                         addToFavourite={addToFavourite}
                         removeToFavourite={removeToFavourite}
-                        loading={clothcategory.loading}
-                        error={clothcategory.error}
+                        loading={product.loading}
+                        error={product.error}
                         favItmes={favouriteState.favItmes}
                     />
                 </div>
