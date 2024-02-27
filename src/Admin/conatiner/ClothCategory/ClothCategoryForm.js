@@ -83,7 +83,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
 
             onHandleSubmit(mergedData);
             handleClose();
-            resetForm({ ...values }, setSizesAndStocks([])); // reset form after submission and remove all added fields in array
+            resetForm({ ...values }, setSizesAndStocks([{}])); // reset form after submission and remove all added fields in array
         },
     });
 
@@ -128,7 +128,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                     <form className='row' onSubmit={handleSubmit} style={{ width: "500px" }}>
                         <div className="col-12 mb-3 form_field position-relative">
                             <div className='category_name' style={{ display: 'flex' }}>
-                                <label style={{ paddingTop: '7px', paddingRight: '37px' }}>CATEGORY NAME:</label>
+                                <label style={{ paddingTop: '7px', paddingRight: '37px' }}>Category name:</label>
                                 <select
                                     name="category_id"
                                     id="category_id"
@@ -152,7 +152,7 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                         </div>
 
                         <div className='subcategory_name' style={{ display: 'flex' }}>
-                            <label style={{ paddingTop: '7px', paddingRight: '10px' }}>SUBCATEGORY NAME:</label>
+                            <label style={{ paddingTop: '7px', paddingRight: '10px' }}>Subcategory name:</label>
                             <select
                                 name="sub_id"
                                 id="sub_id"
@@ -173,92 +173,114 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                             </select>
                             {errors.sub_name && touched.sub_name ? <span className='form-error-addPro'>{errors.sub_name}</span> : null}
                         </div>
-                        <div className="col-12 mb-3 form_field position-relative">
-                            <TextField className='m-0' margin="dense" id="name" label="Name" type="text" fullWidth name='name' variant="standard"
+
+                        <div className="col-12 mb-3">
+                            <label className="form-label" htmlFor="ecommerce-product-name">Name</label>
+                            <input type="text" className="form-control" id="ecommerce-product-name" placeholder="Product Name" aria-label="Product title" name="name"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.name}
+                                required
                             />
-                            {errors.name && touched.name ? (
-                                <span className="d-block position-absolute form-error">{errors.name}</span>
-                            ) : null}
+                            {/* {errors.name && touched.name ? (<span className="d-block position-absolute form-error">{errors.name}</span>) : null} */}
                         </div>
 
-                        <div className="col-6 mb-3 form_field position-relative">
-                            <TextField className='m-0' margin="dense" id="price" label="Price" type="number" fullWidth name='price' variant="standard"
+
+                        <div className="col-6 mb-3">
+                            <label className="form-label" htmlFor="ecommerce-product-price">Price</label>
+                            <input type="number" className="form-control" id="ecommerce-product-name" placeholder="Price" aria-label="Product price" name="price"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.price}
+                                required
                             />
-                            {errors.price && touched.price ? (
-                                <span className="d-block position-absolute form-error">{errors.price}</span>
-                            ) : null}
+                            {/* {errors.price && touched.price ? (<span className="d-block position-absolute form-error">{errors.price}</span>) : null} */}
                         </div>
 
-                        <div className="col-6 mb-3 form_field position-relative">
-                            <TextField className='m-0' margin="dense" id="mrp" label="MRP" type="number" fullWidth name='mrp' variant="standard"
+
+                        <div className="col-6 mb-3">
+                            <label className="form-label" htmlFor="ecommerce-product-mrp">mrp</label>
+                            <input type="number" className="form-control" id="ecommerce-product-name" placeholder="MRP" aria-label="Product MRP" name="mrp"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.mrp}
+                                required
                             />
-                            {errors.mrp && touched.mrp ? (
-                                <span className="d-block position-absolute form-error">{errors.mrp}</span>
-                            ) : null}
+                            {/* {errors.mrp && touched.mrp ? (<span className="d-block position-absolute form-error">{errors.mrp}</span>) : null} */}
                         </div>
 
-                        {sizesAndStocks.map((input, index) => (
-                            <div style={{ display: 'flex', margin: '5px 0', height: '39px' }} key={index}>
-
-                                {/* Sizes */}
-                                <div style={{ margin: "0 5px", width: '140px' }}>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id={`ecommerce-product-size-${index}`}
-                                        placeholder="size"
-                                        name={`sizesAndStocks[${index}].size`}
-                                        aria-label="Product size"
-                                        value={input.size}
-                                        onChange={e => handleSizeChange(e, index)}
-                                        onBlur={handleBlur}
-                                    />
-                                    {errors.sizesAndStocks?.[index]?.size && <p>{errors.sizesAndStocks[index].size}</p>}
-                                </div>
-                                {/* Stock */}
-                                <div style={{ margin: "0 5px", width: '100px' }}>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        id={`ecommerce-product-stock-${index}`}
-                                        placeholder="stock"
-                                        name={`sizesAndStocks[${index}].stock`}
-                                        aria-label="Product stock"
-                                        value={input.stock}
-                                        onChange={e => handleStockChange(e, index)}
-                                        onBlur={handleBlur}
-                                    />
-                                    {errors.sizesAndStocks?.[index]?.stock && <p>{errors.sizesAndStocks[index].stock}</p>}
-                                </div>
-
+                        <>
+                            {/* Labels for Size and Stock */}
+                            <div className='col-4' >
+                                {/* <label htmlFor={ecommerce-product-size}>Size</label> */}
+                                <label className="form-label" htmlFor={`ecommerce-product-size`}>Size</label>
                             </div>
-                        ))}
+                            <div className='col-4'>
+                                {/* <label htmlFor={ecommerce-product-stock}>Stock</label> */}
+                                <label className="form-label" htmlFor={`ecommerce-product-stock`}>Stock</label>
+                            </div>
 
-                        {/* Button to add size and stock dynamically */}
-                        <div className="col-12 mb-3">
-                            <Button variant="contained" onClick={handleAddSizeAndStock}><ArrowForwardIcon /></Button>
-                        </div>
+
+                            {sizesAndStocks.map((input, index) => (
+                                <div style={{ display: 'flex', margin: '5px 0', height: '39px' }} key={index}>
+
+                                    {/* Sizes */}
+                                    <div className='col-4 mb-3' style={{ margin: "0 5px", width: '140px' }}>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id={`ecommerce-product-size-${index}`}
+                                            placeholder="Size"
+                                            name={`sizesAndStocks[${index}].size`}
+                                            aria-label="Product size"
+                                            value={input.size}
+                                            onChange={e => handleSizeChange(e, index)}
+                                            onBlur={handleBlur}
+                                            required
+                                        />
+                                        {/* {errors.sizesAndStocks?.[index]?.size && <p>{errors.sizesAndStocks[index].size}</p>} */}
+                                    </div>
+                                    {/* Stock */}
+                                    <div className='col-4 mb-3' style={{ margin: "0 5px", width: '140px' }}>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            id={`ecommerce-product-stock-${index}`}
+                                            placeholder="Stock"
+                                            name={`sizesAndStocks[${index}].stock`}
+                                            aria-label="Product stock"
+                                            value={input.stock}
+                                            onChange={e => handleStockChange(e, index)}
+                                            onBlur={handleBlur}
+                                            required
+                                        />
+                                        {/* {errors.sizesAndStocks?.[index]?.stock && <p>{errors.sizesAndStocks[index].stock}</p>} */}
+                                    </div>
+                                </div>
+                            ))}
+                            {/* Add Button */}
+                            <div className="addButtonContainer">
+                                <Button className="addButton" variant="contained" onClick={handleAddSizeAndStock}>
+                                    <ArrowForwardIcon />
+                                </Button>
+                            </div>
+                        </>
 
                         <div className="col-7 mb-3 form-group mt-3">
+                            <label className="form-label" htmlFor="ecommerce-product-image" > Images </label>
                             <input type="file" name="prec" className="form-control" id="prec"
-                                onChange={(event) => setFieldValue("prec", event.target.files[0])} />
-                            {errors.prec && touched.prec ? <span className='form-error'>{errors.prec}</span> : null}
+                                onChange={(event) => setFieldValue("prec", event.target.files[0])} required />
+                            {/* {errors.prec && touched.prec ? <span className='form-error'>{errors.prec}</span> : null} */}
                             {
                                 values.prec ? <img style={{ width: '100px' }} src={typeof values.prec === 'string' ? values.prec : URL.createObjectURL(values.prec)} alt={values.prec} />
                                     : null}
                         </div>
 
+
                         <div className="col-12 mb-3 form_field position-relative">
-                            <TextField className='m-0' margin="dense" id="desc" label="Description" type="text" fullWidth multiline rows={3} name='desc' variant="standard"
+                            <label className="form-label">Description</label>
+
+                            <textarea rows={"5"} cols={"60"} className='m-0' margin="dense" id="desc" label="Description" type="text" fullWidth multiline name='desc' variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.desc}

@@ -65,7 +65,15 @@ export default function ClothCategory(props) {
         },
         { field: 'name', headerName: 'Product Name', flex: 2 },
         { field: 'price', headerName: 'Price (₹)', flex: 1 },
-        { field: 'stock', headerName: 'Stock', flex: 1 },
+        {
+            field: 'sizesAndStocks',
+            headerName: 'Stock',
+            flex: 1,
+            valueGetter: (params) => {
+                // Access the stock value from the first element of sizesAndStocks array
+                return params.row.sizesAndStocks[0]?.stock || 0;
+            }
+        },
         { field: 'desc', headerName: 'Description', flex: 2 },
         {
             field: 'action', headerName: 'Action', flex: 1, sortable: false, disableColumnMenu: true,

@@ -2822,3 +2822,15 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-contained
   align-items: center;
   justify-content: center;
 }
+
+.addButtonContainer {
+  /* display: flex; */
+  /* justify-content: end; */
+}
+
+/* Style for the button */
+.addButton {
+  /* margin-left: -100px; Adjust as needed */
+  left: 330px;
+  top: -42px;
+}
