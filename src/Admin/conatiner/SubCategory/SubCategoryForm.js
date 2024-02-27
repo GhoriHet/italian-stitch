@@ -9,21 +9,21 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
+import { getCategory } from '../../../user/redux/slice/category.slice';
 
 function SubCategoryForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
 
     const dispatch = useDispatch()
 
-    const clothcat = useSelector(state => state.clothcat)
+    const category = useSelector(state => state.category)
 
     useEffect(() => {
         if (updateData) {
             handleClickOpen()
             setValues(updateData)
         }
-        dispatch(getClothCat())
+        dispatch(getCategory())
     }, [updateData])
 
     const handleClickOpen = () => {
@@ -79,7 +79,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                                 >
                                     <option value='0'>Select</option>
                                     {
-                                        clothcat.clothcat.map((v) => {
+                                        category.category.map((v) => {
                                             return (
                                                 <option value={v.id}>{v.category_name}</option>
                                             )
@@ -90,7 +90,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                                     <span className="form-error1">{errors.category_id}</span>
                                 ) : null}
                             </div>
-                            
+
                         </div>
 
                         <div className="col-12 mb-3 form_field position-relative">

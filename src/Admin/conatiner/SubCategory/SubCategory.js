@@ -15,7 +15,7 @@ function SubCategory() {
     const dispatch = useDispatch();
 
     const clothsubcat = useSelector(state => state.clothsubcat);
-    const clothcat = useSelector(state => state.clothcat);
+    const category = useSelector(state => state.category);
 
     useEffect(() => {
         dispatch(getClothSubCat())
@@ -45,7 +45,7 @@ function SubCategory() {
         {
             field: 'category_id', headerName: 'Category Name', flex: 2,
             renderCell: (params) => {
-                const fData = clothcat.clothcat.filter((v) => v.id === params.row.category_id)
+                const fData = category.category.filter((v) => v.id === params.row.category_id)
                 return fData.length > 0 ? fData[0].category_name : null
             }
         },

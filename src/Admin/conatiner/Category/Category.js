@@ -6,26 +6,26 @@ import { useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
-import { addClothCat, deleteClothCat, getClothCat, updateClothCat } from '../../../user/redux/slice/clothcat.slice';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
+import { addCategory, deleteCategory, getCategory, updateCategory } from '../../../user/redux/slice/category.slice';
 
 function Category(props) {
     const [update, setUpdate] = useState(false)
 
     const dispatch = useDispatch()
 
-    const clothcat = useSelector(state => state.clothcat);
+    const category = useSelector(state => state.category);
 
     useEffect(() => {
-        dispatch(getClothCat())
+        dispatch(getCategory())
     }, [])
 
     const handleSubmitForm = (data) => {
         if (update) {
-            dispatch(updateClothCat(data))
+            dispatch(updateCategory(data))
             dispatch(setAlert({ text: 'Category successfully update', color: 'success' }))
         } else {
-            dispatch(addClothCat(data))
+            dispatch(addCategory(data))
             dispatch(setAlert({ text: 'Category successfully added', color: 'success' }))
         }
         setUpdate(false)
@@ -33,7 +33,7 @@ function Category(props) {
 
     const handleDelete = (id) => {
         dispatch(setAlert({ text: 'Category successfully deleted', color: 'success' }))
-        dispatch(deleteClothCat(id))
+        dispatch(deleteCategory(id))
     }
 
     const handleUpdate = (data) => {
@@ -66,7 +66,7 @@ function Category(props) {
 
             <div sx={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={clothcat.clothcat}
+                    rows={category.category}
                     columns={columns}
                     initialState={{
                         pagination: {

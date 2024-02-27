@@ -4,7 +4,7 @@ import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase
 
 const initialState = {
     isLoading: false,
-    clothcat: [],
+    category: [],
     error: null
 }
 
@@ -18,8 +18,8 @@ const onError = (state, action) => {
     state.error = action.error.message;
 }
 
-export const getClothCat = createAsyncThunk(
-    'clothcat/get',
+export const getCategory = createAsyncThunk(
+    'category/get',
     async () => {
 
         let data = []
@@ -33,8 +33,8 @@ export const getClothCat = createAsyncThunk(
     }
 )
 
-export const addClothCat = createAsyncThunk(
-    'clothcat/post',
+export const addCategory = createAsyncThunk(
+    'category/post',
     async (data) => {
 
         try {
@@ -47,8 +47,8 @@ export const addClothCat = createAsyncThunk(
     }
 )
 
-export const deleteClothCat = createAsyncThunk(
-    'clothcat/delete',
+export const deleteCategory = createAsyncThunk(
+    'category/delete',
     async (id) => {
 
         await deleteDoc(doc(db, "category", id));
@@ -56,45 +56,45 @@ export const deleteClothCat = createAsyncThunk(
     }
 )
 
-export const updateClothCat = createAsyncThunk(
-    'clothcat/put',
+export const updateCategory = createAsyncThunk(
+    'category/put',
     async (data) => {
 
         const washingtonRef = doc(db, "category", data.id);
 
-        let clothCatData = { ...data, id: data.id };
-        delete clothCatData.id;
+        let categoryData = { ...data, id: data.id };
+        delete categoryData.id;
 
-        await updateDoc(washingtonRef, clothCatData);
+        await updateDoc(washingtonRef, categoryData);
 
         return data;
     }
 )
 
-export const clothcatSlice = createSlice({
-    name: 'clothcat',
+export const categorySlice = createSlice({
+    name: 'category',
     initialState: initialState,
     reducers: {},
     extraReducers: (builder) => {
 
-        builder.addCase(getClothCat.pending, onLoading);
+        builder.addCase(getCategory.pending, onLoading);
 
-        builder.addCase(getClothCat.fulfilled, (state, action) => {
-            state.clothcat = action.payload;
+        builder.addCase(getCategory.fulfilled, (state, action) => {
+            state.category = action.payload;
         })
 
-        builder.addCase(getClothCat.rejected, onError);
+        builder.addCase(getCategory.rejected, onError);
 
-        builder.addCase(addClothCat.fulfilled, (state, action) => {
-            state.clothcat = state.clothcat.concat(action.payload)
+        builder.addCase(addCategory.fulfilled, (state, action) => {
+            state.category = state.category.concat(action.payload)
         })
 
-        builder.addCase(deleteClothCat.fulfilled, (state, action) => {
-            state.clothcat = state.clothcat.filter((v) => v.id !== action.payload)
+        builder.addCase(deleteCategory.fulfilled, (state, action) => {
+            state.category = state.category.filter((v) => v.id !== action.payload)
         })
 
-        builder.addCase(updateClothCat.fulfilled, (state, action) => {
-            state.clothcat = state.clothcat.map((v) => {
+        builder.addCase(updateCategory.fulfilled, (state, action) => {
+            state.category = state.category.map((v) => {
                 if (v.id === action.payload.id) {
                     return action.payload;
                 } else {
@@ -105,4 +105,4 @@ export const clothcatSlice = createSlice({
     }
 })
 
-export default clothcatSlice.reducer;
+export default categorySlice.reducer;

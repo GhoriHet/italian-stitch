@@ -9,18 +9,19 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
+// import { getClothCat } from '../../../user/redux/slice/clothcat.slice';
 import { getClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { getCategory } from '../../../user/redux/slice/category.slice';
 
 function ProductForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);
-    const [category, setCategory] = useState('');
+    const [categoryData, setCategoryData] = useState('');
     const [subcategory, setSubCategory] = useState([]);
     const [sizesAndStocks, setSizesAndStocks] = useState([{ size: null, stock: null }]);
 
     const dispatch = useDispatch();
-    const clothcat = useSelector(state => state.clothcat);
+    const category = useSelector(state => state.category);
     const clothsubcat = useSelector(state => state.clothsubcat);
 
     useEffect(() => {
@@ -30,7 +31,7 @@ function ProductForm({ onHandleSubmit, updateData }) {
             setSizesAndStocks(updateData.sizesAndStocks || []);
             setOpen(true);
         }
-        dispatch(getClothCat());
+        dispatch(getCategory());
         dispatch(getClothSubCat());
     }, [updateData]);
 
@@ -88,7 +89,7 @@ function ProductForm({ onHandleSubmit, updateData }) {
     });
 
     const handleSub = (value) => {
-        setCategory(value);
+        setCategoryData(value);
 
         const fData = clothsubcat.clothsubcat.filter((v) => v.category_id === value);
 
@@ -140,7 +141,7 @@ function ProductForm({ onHandleSubmit, updateData }) {
 
                                     <option value='0'>Select</option>
                                     {
-                                        clothcat.clothcat.map((v) => {
+                                        category.category.map((v) => {
                                             return (
                                                 <option value={v.id}>{v.category_name}</option>
                                             )

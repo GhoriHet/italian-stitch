@@ -6,20 +6,20 @@ import Badge from '@mui/material/Badge';
 import CartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { getClothSubCat } from '../../redux/slice/Clothsub.slice';
-import { getClothCat } from '../../redux/slice/clothcat.slice';
 import './header.css';
+import { getCategory } from '../../redux/slice/category.slice';
 
 function Header(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const clothsubcat = useSelector(state => state.clothsubcat);
-    const clothcat = useSelector(state => state.clothcat);
+    const category = useSelector(state => state.category);
     const auth = useSelector(state => state.auth)
 
     React.useEffect(() => {
         dispatch(getClothSubCat())
-        dispatch(getClothCat())
+        dispatch(getCategory())
     }, [])
 
     const handleLogout = () => {
@@ -128,7 +128,7 @@ function Header(props) {
                                     <NavLink to={"/shop"}>Shop  <i className="fa fa-angle-down" /></NavLink>
                                     <div className="sub-menu mega-menu mega-menu-column-4">
                                         {
-                                            clothcat.clothcat.map((value) => {
+                                            category.category.map((value) => {
                                                 return (
                                                     <div className="list-item" key={value.id}>
                                                         <NavLink to={"/product/" + value.category_name + '/' + value.id}><h4 className="title">{value.category_name}</h4></NavLink>
