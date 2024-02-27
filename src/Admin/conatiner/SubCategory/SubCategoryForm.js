@@ -81,8 +81,8 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                                     {
                                         category.category.map((v) => {
                                             return (
-                                                <option value={v.id}>{v.category_name}</option>
-                                            )
+                                                <option key={v.id} value={v.id}>{v.category_name}</option>
+                                            );
                                         })
                                     }
                                 </select>

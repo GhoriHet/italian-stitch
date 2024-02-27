@@ -73,7 +73,7 @@ function ProductForm({ onHandleSubmit, updateData }) {
             desc: '',
             prec: '',
             mrp: '',
-            sizesAndStocks: []
+            sizesAndStocks: [{ size: '', stock: '' }]
         },
         onSubmit: (values, { resetForm }) => {
             let obj = {
@@ -139,15 +139,10 @@ function ProductForm({ onHandleSubmit, updateData }) {
                                     onBlur={handleBlur}
                                     value={values.category_id}
                                 >
-
                                     <option value='0'>Select</option>
-                                    {
-                                        category.category.map((v) => {
-                                            return (
-                                                <option value={v.id}>{v.category_name}</option>
-                                            )
-                                        })
-                                    }
+                                    {category.category.map((v) => (
+                                        <option key={v.id} value={v.id}>{v.category_name}</option>
+                                    ))}
                                 </select>
                                 {errors.category_id && touched.category_id ? <span className='form-error-addPro'>{errors.category_id}</span> : null}
                             </div>
@@ -163,15 +158,12 @@ function ProductForm({ onHandleSubmit, updateData }) {
                                 onBlur={handleBlur}
                                 value={values.sub_name}
                             >
-
                                 <option value='0'>Select</option>
-                                {
-                                    subcategoryData.map((v) => (
-                                        <option key={v.id} value={v.id}>
-                                            {v.sub_name}
-                                        </option>
-                                    ))
-                                }
+                                {subcategoryData.map((v) => (
+                                    <option key={v.id} value={v.id}>
+                                        {v.sub_name}
+                                    </option>
+                                ))}
                             </select>
                             {errors.sub_name && touched.sub_name ? <span className='form-error-addPro'>{errors.sub_name}</span> : null}
                         </div>
