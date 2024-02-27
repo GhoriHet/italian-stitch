@@ -68,7 +68,7 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                     <form className='row' onSubmit={handleSubmit} style={{ width: "500px" }}>
                         <div className="col-12 mb-3 form_field position-relative">
                             <div className='category_name' style={{ display: 'flex' }}>
-                                <label style={{ paddingTop: '7px', paddingRight: '20px' }}>CATEGORY NAME:</label>
+                                <label style={{ paddingTop: '7px', paddingRight: '20px' }}>Category Name: </label>
                                 <select
                                     name="category_id"
                                     id="category_id"
@@ -90,16 +90,19 @@ function SubCategoryForm({ onHandleSubmit, updateData }) {
                                     <span className="form-error1">{errors.category_id}</span>
                                 ) : null}
                             </div>
+                            
                         </div>
 
                         <div className="col-12 mb-3 form_field position-relative">
-                            <TextField className='m-0' margin="dense" id="mediName" label="Name" type="text" fullWidth name='sub_name' variant="standard"
+                            <label className="form-label" htmlFor="ecommerce-product-name">Subcategory Name</label>
+                            <input type="text" className="form-control" id="ecommerce-product-name" placeholder="Subcategory Name" aria-label="Subcategory title" name="sub_name"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.sub_name}
+                                required
                             />
                             {errors.sub_name && touched.sub_name ? (
-                                <span className="d-block position-absolute form-error">{errors.sub_name}</span>
+                                <span className="d-block position-absolute form-error" style={{ color: 'red', fontSize: '14px', position: 'absolute' }}>{errors.sub_name}</span>
                             ) : null}
                         </div>
                         <div className='pt-3 col-12 text-center'>

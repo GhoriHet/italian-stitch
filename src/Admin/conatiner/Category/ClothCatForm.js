@@ -57,14 +57,25 @@ function ClothCatForm({ onHandleSubmit, updateData }) {
                 <DialogTitle style={{ fontSize: '24px' }} className='px-5 pt-4 pb-0 text-center '>Cloth Category</DialogTitle>
                 <DialogContent className='px-5 pb-4'>
                     <form className='row' onSubmit={handleSubmit} style={{ width: "500px" }}>
-                        <div className="col-12 mb-3 form_field position-relative">
+                        {/* <div className="col-12 mb-3 form_field position-relative">
                             <TextField className='m-0' margin="dense" id="mediName" label="Name" type="text" fullWidth name='category_name' variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.category_name}
                             />
+                            
+                        </div> */}
+
+                        <div className="col-12 mb-3 form_field position-relative">
+                            <label className="form-label" htmlFor="ecommerce-product-name">Category Name</label>
+                            <input type="text" className="form-control" id="ecommerce-product-name" placeholder="Category Name" aria-label="Category title" name="name"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.category_name}
+                                required
+                            />
                             {errors.category_name && touched.category_name ? (
-                                <span className="d-block position-absolute form-error">{errors.category_name}</span>
+                                <span className="d-block position-absolute form-error" style={{ color: 'red', fontSize: '14px', position: 'absolute' }}>{errors.category_name}</span>
                             ) : null}
                         </div>
 

@@ -1932,8 +1932,8 @@ span.form-error1 {
   font-size: 14px;
   position: absolute;
   color: red;
-  padding-left: 202px;
-  padding-top: 17px;
+  padding-left: 0px;
+  padding-top: 38px;
 }
 
 @media only screen and (max-width: 400px) {

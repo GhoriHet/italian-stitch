@@ -266,16 +266,14 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                             </div>
                         </>
 
-                        <div className="col-7 mb-3 form-group mt-3">
+                        <div className="col-7 mb-3 form-group">
                             <label className="form-label" htmlFor="ecommerce-product-image" > Images </label>
                             <input type="file" name="prec" className="form-control" id="prec"
                                 onChange={(event) => setFieldValue("prec", event.target.files[0])} required />
-                            {/* {errors.prec && touched.prec ? <span className='form-error'>{errors.prec}</span> : null} */}
                             {
                                 values.prec ? <img style={{ width: '100px' }} src={typeof values.prec === 'string' ? values.prec : URL.createObjectURL(values.prec)} alt={values.prec} />
                                     : null}
                         </div>
-
 
                         <div className="col-12 mb-3 form_field position-relative">
                             <label className="form-label">Description</label>
@@ -285,9 +283,6 @@ function ClothCategoryForm({ onHandleSubmit, updateData }) {
                                 onBlur={handleBlur}
                                 value={values.desc}
                             />
-                            {errors.desc && touched.desc ? (
-                                <span className="d-block position-absolute form-error">{errors.desc}</span>
-                            ) : null}
                         </div>
 
                         <div className='pt-3 col-12 text-center'>
