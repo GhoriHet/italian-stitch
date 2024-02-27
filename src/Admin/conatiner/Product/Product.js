@@ -8,7 +8,7 @@ import Loader from '../../../user/UI/loader/Loader';
 import ErrorMsg from '../../../user/UI/errorMsg/ErrorMsg';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
 import ProductForm from './ProductForm';
-import { addProduct, deleteProduct, getProduct, updateProduct } from '../../../user/redux/slice/ClothCategorySlice';
+import { addProduct, deleteProduct, getProduct, updateProduct } from '../../../user/redux/slice/Product.slice';
 
 export default function Product(props) {
     const [update, setUpdate] = useState(false);

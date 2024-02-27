@@ -5,7 +5,7 @@ import { logoutRequest } from '../../redux/action/auth.action';
 import Badge from '@mui/material/Badge';
 import CartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { getSubcategory } from '../../redux/slice/Clothsub.slice';
+import { getSubcategory } from '../../redux/slice/Subcategory.slice';
 import './header.css';
 import { getCategory } from '../../redux/slice/category.slice';
 

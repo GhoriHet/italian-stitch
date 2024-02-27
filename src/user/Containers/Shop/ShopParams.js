@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './shop.css'
 import { NavLink } from 'react-router-dom';
-import { getProduct } from '../../redux/slice/ClothCategorySlice';
+import { getProduct } from '../../redux/slice/Product.slice';
 
 function ShopParams(props) {
     const { id } = useParams();

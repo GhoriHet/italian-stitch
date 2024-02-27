@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { addToCart } from '../../redux/action/cart.action';
 import { setAlert } from '../../redux/slice/Alert.slice';
-import { getProduct } from '../../redux/slice/ClothCategorySlice';
+import { getProduct } from '../../redux/slice/Product.slice';
 
 function ShopDetail(props) {
     const { id } = useParams();

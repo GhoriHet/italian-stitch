@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import { useState, useEffect } from 'react';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
-import { addSubcategory, deleteSubcategory, getSubcategory, updateSubcategory } from '../../../user/redux/slice/Clothsub.slice';
+import { addSubcategory, deleteSubcategory, getSubcategory, updateSubcategory } from '../../../user/redux/slice/Subcategory.slice';
 
 function SubCategory() {
     const [update, setUpdate] = useState(false)

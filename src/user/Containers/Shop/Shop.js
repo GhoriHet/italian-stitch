@@ -6,7 +6,7 @@ import ShopList from './ShopList';
 import { addToCart } from '../../redux/action/cart.action';
 import { setAlert } from '../../redux/slice/Alert.slice';
 import { addOnStoreAndAPI, removeOnStoreAndAPI } from '../../redux/action/favourite.action';
-import { getProduct } from '../../redux/slice/ClothCategorySlice';
+import { getProduct } from '../../redux/slice/Product.slice';
 
 function Shop({ categoryId }) {
     const dispatch = useDispatch();

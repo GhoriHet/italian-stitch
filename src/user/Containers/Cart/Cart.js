@@ -16,7 +16,7 @@ import StepLabel from '@mui/material/StepLabel';
 import { NavLink } from 'react-router-dom';
 import { addOrder } from '../../redux/slice/OrderSlice';
 import { adduserInfoData, updateUserData } from '../../redux/slice/UserInfoSlice';
-import { getProduct } from '../../redux/slice/ClothCategorySlice';
+import { getProduct } from '../../redux/slice/Product.slice';
 
 const validationSchema = Yup.object({
     name: Yup.string().required(),

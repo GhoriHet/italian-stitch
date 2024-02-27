@@ -13,7 +13,7 @@ import { useState } from 'react';
 // import { getClothSubCat } from '../../../user/redux/slice/Clothsub.slice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { getCategory } from '../../../user/redux/slice/category.slice';
-import { getSubcategory } from '../../../user/redux/slice/Clothsub.slice';
+import { getSubcategory } from '../../../user/redux/slice/Subcategory.slice';
 
 function ProductForm({ onHandleSubmit, updateData }) {
     const [open, setOpen] = React.useState(false);

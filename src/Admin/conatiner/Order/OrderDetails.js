@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOrder, updateOrderStatus } from '../../../user/redux/slice/OrderSlice';
-import { getProduct } from '../../../user/redux/slice/ClothCategorySlice';
+import { getProduct } from '../../../user/redux/slice/Product.slice';
 
 function OrderDetails(props) {
     const { id } = useParams();
