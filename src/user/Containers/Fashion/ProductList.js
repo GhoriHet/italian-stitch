@@ -6,12 +6,12 @@ function ProductList(props) {
 
     const [finalcategory, setFinalcategory] = useState([]);
     const { category_name, id } = useParams();
-    const clothcategory = useSelector(state => state.clothcategory);
+    const product = useSelector(state => state.product);
 
     useEffect(() => {
-        const data = clothcategory.clothcategory.filter((v) => v.category_id == id || v.sub_id == id);
+        const data = product.product.filter((v) => v.category_id == id || v.sub_id == id);
         setFinalcategory(data);
-    }, [id, clothcategory.clothcategory]);
+    }, [id, product.product]);
 
     return (
         <div>
