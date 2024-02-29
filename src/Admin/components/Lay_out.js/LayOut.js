@@ -27,9 +27,9 @@ function Lay_out({ children }) {
             <nav id='navAdmin' className={toggle ? 'sidebar' : 'close'}>
                 <div className="logo-name">
                     <div className="logo-image">
-                        <img src="/assets/img/admin/logo.png" alt />
+                        {/* <img src="/assets/img/admin/logo.png" alt /> */}
                     </div>
-                    <span className="logo_name">CodingLab</span>
+                    <span className="logo_name">Italian Stitch</span>
                 </div>
                 <div className="menu-items">
                     <ul className="nav-links">
@@ -81,7 +81,7 @@ function Lay_out({ children }) {
                         <i class="fa-solid fa-magnifying-glass" style={{ fontSize: "20px" }}></i>
                         <input type="search" placeholder="Search here..." />
                     </div>
-                    <img src="/assets/img/admin/profile.jpg" alt />
+                    <img src="" alt />
                 </div>
                 {children}
             </section>

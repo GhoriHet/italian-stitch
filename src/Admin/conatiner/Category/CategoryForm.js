@@ -54,7 +54,7 @@ function CategoryForm({ onHandleSubmit, updateData }) {
                 <Button type="button" variant="contained" onClick={handleClickOpen}>Category<AddIcon fontSize="small" /></Button>
             </div>
             <Dialog id='addModal' open={open}>
-                <DialogTitle style={{ fontSize: '24px' }} className='px-5 pt-4 pb-0 text-center '>Cloth Category</DialogTitle>
+                <DialogTitle style={{ fontSize: '24px' }} className='px-5 pt-4 pb-0 text-center '><b>Category</b></DialogTitle>
                 <DialogContent className='px-5 pb-4'>
                     <form className='row' onSubmit={handleSubmit} style={{ width: "500px" }}>
 

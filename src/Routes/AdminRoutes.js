@@ -2,11 +2,11 @@ import React from "react";
 import LayOut from "../Admin/components/Lay_out.js/LayOut";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../Admin/conatiner/Dashboard/Dashboard";
-import SubCategory from "../Admin/conatiner/Subcategory/SubCategory"
 import Order from "../Admin/conatiner/Order/Order";
 import OrderDetails from "../Admin/conatiner/Order/OrderDetails";
 import Product from "../Admin/conatiner/Product/Product";
 import Category from "../Admin/conatiner/Category/Category";
+import SubCategory from '../Admin/conatiner/SubCategory/SubCategory';
 
 function AdminRoutes(props) {
     return (
