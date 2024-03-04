@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import { setAlert } from '../../../user/redux/slice/Alert.slice';
 import { addSubcategory, deleteSubcategory, getSubcategory, updateSubcategory } from '../../../user/redux/slice/Subcategory.slice';
 
-function SubCategory() {
+function Subcategory() {
     const [update, setUpdate] = useState(false)
 
     const dispatch = useDispatch();
@@ -87,4 +87,4 @@ function SubCategory() {
     );
 }
 
-export default SubCategory;
+export default Subcategory;

@@ -6,7 +6,7 @@ import Order from "../Admin/conatiner/Order/Order";
 import OrderDetails from "../Admin/conatiner/Order/OrderDetails";
 import Product from "../Admin/conatiner/Product/Product";
 import Category from "../Admin/conatiner/Category/Category";
-import SubCategory from '../Admin/conatiner/SubCategory/SubCategory';
+import Subcategory from "../Admin/conatiner/Subcategory/Subcategory";
 
 function AdminRoutes(props) {
     return (
@@ -14,7 +14,7 @@ function AdminRoutes(props) {
             <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route exact path='/category' element={<Category />} />
-                <Route exact path='/subcategory' element={<SubCategory />} />
+                <Route exact path='/subcategory' element={<Subcategory />} />
                 <Route exact path='/product' element={<Product />} />
                 <Route exact path='/order' element={<Order />} />
                 <Route exact path="/order/orderdetails/:id" element={<OrderDetails />} />
