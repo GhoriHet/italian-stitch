@@ -63,21 +63,16 @@ function Category(props) {
         <div>
             <h2>Watch Category</h2>
             <CategoryForm onHandleSubmit={handleSubmitForm} updateData={update} />
-
-            <div sx={{ height: 400, width: '100%' }}>
+            <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
                     rows={category.category}
                     columns={columns}
                     initialState={{
                         pagination: {
-                            paginationModel: {
-                                page: 0, pageSize: 5,
-                            },
+                            paginationModel: { page: 0, pageSize: 5 },
                         },
                     }}
-
                     pageSizeOptions={[5, 10]}
-                    
                 />
             </div>
         </div>
