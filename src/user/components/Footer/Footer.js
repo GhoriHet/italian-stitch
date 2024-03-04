@@ -2,41 +2,94 @@ import React from 'react';
 
 function Footer(props) {
     return (
-        <footer className="section-p1">
-            <div className="col">
-                <div className='logo'>
-                    {/* <img src="../assets/img/shopify_logo.png" alt className="logo" /> */}
-                </div>
-                <h4>Contact</h4>
-                <p><strong>Address:</strong> Delhi,India </p>
-                <p><strong>Phone:</strong> <a href="#"> +91 9988776655</a> </p>
-                <p><strong>Hours:</strong> 10:00AM - 05:00PM, Monday - Saturday </p>
+        <footer className="footer-section">
+  <div className="container relative">
+    <div className="sofa-img">
+      <img src="../assets/images/sofa.png" alt="Image" className="img-fluid" />
+    </div>
+    <div className="row">
+      <div className="col-lg-8">
+        <div className="subscription-form">
+          <h3 className="d-flex align-items-center"><span className="me-1"><img src="../assets/images/envelope-outline.svg" alt="Image" className="img-fluid" /></span><span>Subscribe to Newsletter</span></h3>
+          <form action="#" className="row g-3">
+            <div className="col-auto">
+              <input type="text" className="form-control" placeholder="Enter your name" />
             </div>
-            <div className="col">
-                <h4>About</h4>
-                <a href="#">About Us</a>
-                <a href="#">Delivery Information</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms &amp; Conditions</a>
-                <a href="#">Contact Us</a>
+            <div className="col-auto">
+              <input type="email" className="form-control" placeholder="Enter your email" />
             </div>
-            <div className="col">
-                <h4>My Account</h4>
-                <a href="#">Sign In</a>
-                <a href="#">View Cart</a>
-                <a href="#">My Wishlist</a>
-                <a href="#">Track My Order</a>
-                <a href="#">Help</a>
+            <div className="col-auto">
+              <button className="btn1 btn1-primary">
+                <span className="fa fa-paper-plane" />
+              </button>
             </div>
-            <div className="col install">
-                <h4>Payments</h4>
-                <p>Secured Payment Gateways</p>
-                <img src="../assets/img/pay/pay.png" alt />
-            </div>
-            <div className="copyright">
-                <p>© 2022, Web Development Project - Group </p>
-            </div>
-        </footer>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div className="row g-5 mb-5">
+      <div className="col-lg-4">
+        <div className="mb-4 footer-logo-wrap"><a href="#" className="footer-logo">Furni<span>.</span></a></div>
+        <p className="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
+        <ul className="list-unstyled custom-social">
+          <li><a href="#"><span className="fa fa-brands fa-facebook-f" /></a></li>
+          <li><a href="#"><span className="fa fa-brands fa-twitter" /></a></li>
+          <li><a href="#"><span className="fa fa-brands fa-instagram" /></a></li>
+          <li><a href="#"><span className="fa fa-brands fa-linkedin" /></a></li>
+        </ul>
+      </div>
+      <div className="col-lg-8">
+        <div className="row links-wrap">
+          <div className="col-6 col-sm-6 col-md-3">
+            <ul className="list-unstyled">
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact us</a></li>
+            </ul>
+          </div>
+          <div className="col-6 col-sm-6 col-md-3">
+            <ul className="list-unstyled">
+              <li><a href="#">Support</a></li>
+              <li><a href="#">Knowledge base</a></li>
+              <li><a href="#">Live chat</a></li>
+            </ul>
+          </div>
+          <div className="col-6 col-sm-6 col-md-3">
+            <ul className="list-unstyled">
+              <li><a href="#">Jobs</a></li>
+              <li><a href="#">Our team</a></li>
+              <li><a href="#">Leadership</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div className="col-6 col-sm-6 col-md-3">
+            <ul className="list-unstyled">
+              <li><a href="#">Nordic Chair</a></li>
+              <li><a href="#">Kruzo Aero</a></li>
+              <li><a href="#">Ergonomic Chair</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="border-top copyright">
+      <div className="row pt-4">
+        <div className="col-lg-6">
+          <p className="mb-2 text-center text-lg-start">Copyright ©. All Rights Reserved. — Designed with love by <a href="https://untree.co">Untree.co</a> {/* License information: https://untree.co/license/ */}
+          </p>
+        </div>
+        <div className="col-lg-6 text-center text-lg-end">
+          <ul className="list-unstyled d-inline-flex ms-auto">
+            <li className="me-4"><a href="#">Terms &amp; Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
     );
 }
 
