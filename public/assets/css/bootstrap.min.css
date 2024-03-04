@@ -2278,7 +2278,7 @@ progress {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border-radius: .25rem;
+    /* border-radius: .25rem; */
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
@@ -2301,7 +2301,7 @@ progress {
     background-color: #fff;
     border-color: #86b7fe;
     outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25)
+    /* box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25) */
 }
 
 .form-control::-webkit-date-and-time-value {
@@ -8730,7 +8730,7 @@ fieldset:disabled .btn {
 
 .bg-dark {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important
+    /* background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important */
 }
 
 .bg-black {
